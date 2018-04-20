@@ -20,5 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         String test = "This is a test on a remote machine.";
+
+        //testing a coommit thats this comment
     }
 }
