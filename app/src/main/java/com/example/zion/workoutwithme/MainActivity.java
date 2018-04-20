@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     // DANIEL GUTIERREZ
     // CHUONG V TRUONG
 
+    // Chuong commit test
+
     public void onClick(View v) {
         String test = "This is a test on a remote machine.";
     }
