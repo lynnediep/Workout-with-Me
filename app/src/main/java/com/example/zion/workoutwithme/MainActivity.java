@@ -19,6 +19,6 @@ public class MainActivity extends AppCompatActivity {
     // CHUONG V TRUONG
 
     public void onClick(View v) {
-        
+        String test = "This is a test on a remote machine.";
     }
 }
