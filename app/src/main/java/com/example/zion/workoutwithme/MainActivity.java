@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Chuong commit testing 123
 
+    // commit something
     public void onClick(View v) {
         String test = "This is a test on a remote machine.";
     }
