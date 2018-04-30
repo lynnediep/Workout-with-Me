@@ -14,9 +14,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String password) {
+    public User(String name, String password, String email) {
         this.Name = name;
         this.Password = password;
+        this.Email = email;
     }
 
     public User(String name, String password, String bio, String year, String email, String major, String[] interests) {

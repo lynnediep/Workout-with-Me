@@ -62,8 +62,10 @@ public class Register_Page extends AppCompatActivity {
                     if(email.getText().toString().contains("@ucsc.edu")) {
 
                         // Creates new User
-                        User user = new User(email.getText().toString(), password.getText().toString());
-                        table_user.child(firstName.getText().toString() + "_" + lastName.getText().toString()).setValue(user);
+                        User user = new User(firstName.getText().toString() +" " + lastName.getText().toString()
+                                , password.getText().toString()
+                                , email.getText().toString());
+                        table_user.child(email.getText().toString().replaceAll("@ucsc.edu", "")).setValue(user);
                         mDialog.dismiss();
                         // Goes to Profile page on successful register
                         Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
