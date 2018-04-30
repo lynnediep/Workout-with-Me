@@ -7,22 +7,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
+public class Register_Page extends AppCompatActivity {
 
-public class RegisterActivity extends AppCompatActivity {
-
-    TextInputEditText email, password, passwordConfirm, firstName, lastName;
+    private TextInputEditText email, password, passwordConfirm, firstName, lastName;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Databases
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
+        mAuth = FirebaseAuth.getInstance();
 
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
@@ -31,27 +34,28 @@ public class RegisterActivity extends AppCompatActivity {
         lastName = findViewById(R.id.etLastName);
 
 
-        Button registerButton = findViewById(R.id.registerButton);
+        Button registerButton = findViewById(R.id.bRegister);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // Check Passwords are correct
+                // Check Passwords Match
                 if(password.getText().toString().matches(passwordConfirm.getText().toString())) {
 
                     // Check if Email is UCSC Email
                     if(email.getText().toString().contains("@ucsc.edu")) {
 
+                        // Creates new User
                         User user = new User(email.getText().toString(), password.getText().toString());
                         table_user.child(firstName.getText().toString() + "_" + lastName.getText().toString()).setValue(user);
 
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Must be UCSC email", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register_Page.this, "Must be UCSC email", Toast.LENGTH_SHORT).show();
                         email.setError("Must be UCSC email");
                     }
 
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register_Page.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     password.setError("Password does not match");
                     passwordConfirm.setError("Password does not match");
                 }
