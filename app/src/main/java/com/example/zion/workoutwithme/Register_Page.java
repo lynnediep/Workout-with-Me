@@ -21,6 +21,7 @@ public class Register_Page extends AppCompatActivity {
 
     private TextInputEditText email, password, passwordConfirm, firstName, lastName;
     private FirebaseAuth mAuth;
+    public static final String EXTRA_FN_LN_EMAIL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,10 @@ public class Register_Page extends AppCompatActivity {
                         table_user.child(cruzID).setValue(user);
                         mDialog.dismiss();
 
-                        // Goes to Profile page on successful register
+                        // Goes to Profile page on successful register & put extra for FN, LN, & Email
                         Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
+                        profile.putExtra(EXTRA_FN_LN_EMAIL, new String[] {firstName.getText().toString(),
+                                lastName.getText().toString(), email.getText().toString()});
                         startActivity(profile);
 
                     } else {
@@ -108,6 +111,8 @@ public class Register_Page extends AppCompatActivity {
                     password.setError("Password does not match");
                     passwordConfirm.setError("Password does not match");
                 }
+
+
             }
         });
 
