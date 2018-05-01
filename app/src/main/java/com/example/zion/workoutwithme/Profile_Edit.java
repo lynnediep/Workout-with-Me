@@ -42,6 +42,7 @@ public class Profile_Edit extends AppCompatActivity {
             nameText.setText(fnLnEmail[0] + " " + fnLnEmail[1]);
         }
 
+        
         final String cruzID = fnLnEmail[2].replaceAll("@ucsc.edu","");
 
         changeActivityButton = (Button)findViewById(R.id.save);
