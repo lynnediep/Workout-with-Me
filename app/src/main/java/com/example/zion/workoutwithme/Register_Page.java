@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Register_Page extends AppCompatActivity {
 
@@ -55,6 +58,27 @@ public class Register_Page extends AppCompatActivity {
                     return;
                 }
 
+
+                // Check if the user ID already exists
+                final String cruzID = email.getText().toString().replaceAll("@ucsc.edu","");
+                table_user.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child(cruzID).exists()) {
+                            mDialog.dismiss();
+                            Toast.makeText(Register_Page.this, "User already exists", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mDialog.dismiss();
+                        Toast.makeText(Register_Page.this,"Cannot connect to server", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
+
                 // Check if Passwords match
                 if(password.getText().toString().matches(passwordConfirm.getText().toString())) {
 
@@ -62,11 +86,12 @@ public class Register_Page extends AppCompatActivity {
                     if(email.getText().toString().contains("@ucsc.edu")) {
 
                         // Creates new User
-                        User user = new User(firstName.getText().toString() +" " + lastName.getText().toString()
+                        User user = new User(firstName.getText().toString() + " " + lastName.getText().toString()
                                 , password.getText().toString()
                                 , email.getText().toString());
-                        table_user.child(email.getText().toString().replaceAll("@ucsc.edu", "")).setValue(user);
+                        table_user.child(cruzID).setValue(user);
                         mDialog.dismiss();
+
                         // Goes to Profile page on successful register
                         Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
                         startActivity(profile);
@@ -86,6 +111,7 @@ public class Register_Page extends AppCompatActivity {
             }
         });
 
+        // Go back to the main sign up page
         Button cancel = findViewById(R.id.cancelButton);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
