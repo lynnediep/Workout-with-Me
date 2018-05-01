@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".Profile_Edit" />
         <activity android:name=".Register_Page" />
-        <activity android:name=".Sign_In"></activity>
+        <activity android:name=".Sign_In" />
+        <activity android:name=".activity_newsfeed" />
+        <activity android:name=".activity_add_event"></activity>
     </application>
 
 </manifest>
