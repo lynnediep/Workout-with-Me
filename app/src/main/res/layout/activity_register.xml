@@ -15,7 +15,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="148dp"
         android:layout_marginStart="8dp"
-        android:onClick="onRegisterClick"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +31,7 @@
         android:layout_marginRight="92dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="12dp"
+        android:imeOptions="actionDone"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +41,8 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
             android:hint="Enter UCSC Email" />
 
     </android.support.design.widget.TextInputLayout>
@@ -64,6 +66,9 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             android:hint="Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -86,6 +91,9 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
             android:hint="Confirm Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -106,6 +114,9 @@
             android:id="@+id/etFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:inputType="text"
             android:hint="First Name" />
     </android.support.design.widget.TextInputLayout>
 
@@ -126,6 +137,9 @@
             android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
             android:hint="Last Name" />
     </android.support.design.widget.TextInputLayout>
 
