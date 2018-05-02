@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "64261332371",
+    "firebase_url": "https://workout-with-me.firebaseio.com",
+    "project_id": "workout-with-me",
+    "storage_bucket": "workout-with-me.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64261332371:android:e770a1249bf075ce",
+        "android_client_info": {
+          "package_name": "com.example.zion.workoutwithme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64261332371-j8qv85p5cach1vb8btktrqaal1t9b237.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zion.workoutwithme",
+            "certificate_hash": "4c0714dc67a9be272b630a73e3d3042da4de2165"
+          }
+        },
+        {
+          "client_id": "64261332371-gk57sbknblo72u6red5qictueolvaohr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zion.workoutwithme",
+            "certificate_hash": "09d11250c09aaf2a67b46a718e142bdb0b68f9ea"
+          }
+        },
+        {
+          "client_id": "64261332371-892krc5ra9rj67mk84dn6k63mirdk82o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZN4Azyqkm5s-SUEwpY2U7_QEb_I9X5OA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64261332371-892krc5ra9rj67mk84dn6k63mirdk82o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
