@@ -15,7 +15,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="148dp"
         android:layout_marginStart="8dp"
-        android:onClick="onRegisterClick"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +40,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:imeOptions="actionDone"
             android:hint="Enter UCSC Email" />
 
     </android.support.design.widget.TextInputLayout>
@@ -64,6 +64,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:hint="Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -86,6 +87,7 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:hint="Confirm Password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -106,7 +108,8 @@
             android:id="@+id/etFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name" />
+            android:hint="First Name"
+            android:imeOptions="actionDone"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -126,6 +129,7 @@
             android:id="@+id/etLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:hint="Last Name" />
     </android.support.design.widget.TextInputLayout>
 
