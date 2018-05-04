@@ -20,6 +20,7 @@ public class Sign_In extends AppCompatActivity {
 
     TextInputEditText email, password;
     Button bSignIn;
+    public static final String CURRENT_USER_ID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,9 @@ public class Sign_In extends AppCompatActivity {
                             if(user.getPassword().equals(password.getText().toString())) {
                                 Toast.makeText(Sign_In.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                                 Intent home = new Intent(Sign_In.this, activity_newsfeed.class);
+
+                                home.putExtra(CURRENT_USER_ID, cruzID);
+
                                 startActivity(home);
                             } else {
                                 Toast.makeText(Sign_In.this, "Wrong Password", Toast.LENGTH_SHORT).show();

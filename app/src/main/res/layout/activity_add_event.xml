@@ -30,7 +30,8 @@
         android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Title"
+        android:hint="Enter Title"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,7 +56,8 @@
         android:layout_marginTop="25dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Location"
+        android:hint="Enter Location"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/location"
         app:layout_constraintTop_toBottomOf="@+id/enter_title" />
 
@@ -80,7 +82,8 @@
         android:layout_marginTop="25dp"
         android:ems="10"
         android:inputType="time"
-        android:text="Enter Time"
+        android:hint="Enter Time"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/time"
         app:layout_constraintTop_toBottomOf="@+id/enter_location" />
 
@@ -105,7 +108,8 @@
         android:layout_marginTop="25dp"
         android:ems="10"
         android:inputType="date"
-        android:text="Enter Date"
+        android:hint="Enter Date"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/date"
         app:layout_constraintTop_toBottomOf="@+id/enter_time" />
 
@@ -130,7 +134,8 @@
         android:layout_marginTop="25dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="Enter Description (attire, what you are going to do, etc.)"
+        android:hint="Enter Description (attire, what you are going to do, etc.)"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/description"
         app:layout_constraintTop_toBottomOf="@+id/enter_date" />
 
@@ -144,4 +149,30 @@
         android:text="Add "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/max"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="77dp"
+        android:text="Max Users:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <EditText
+        android:id="@+id/enter_max"
+        android:layout_width="64dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="2"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/max"
+        app:layout_constraintTop_toBottomOf="@+id/enter_description" />
+
 </android.support.constraint.ConstraintLayout>

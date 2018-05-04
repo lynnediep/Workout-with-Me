@@ -1,4 +1,7 @@
 package com.example.zion.workoutwithme;
+
+import android.provider.Settings;
+
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +13,15 @@ public class Event {
     private String Time;
     private String Date;
     private String Location;
-    private User Host;
-    private List<User> Users = new ArrayList<User>();
+    private String Host;
+    private ArrayList<String> Users = new ArrayList<String>();
     private int User_Count;
     private int Max_Count;
 
     public Event() {
     }
 
-    public Event(String title, String description, String time, String date, String location, User host, int maxCount) {
+    public Event(String title, String description, String time, String date, String location, String host, int maxCount) {
         Title = title;
         Description = description;
         Time = time;
@@ -70,19 +73,19 @@ public class Event {
         Location = location;
     }
 
-    public User getHost() {
+    public String getHost() {
         return Host;
     }
 
-    public void setHost(User host) {
+    public void setHost(String host) {
         Host = host;
     }
 
-    public List<User> getUsers() {
+    public ArrayList<String> getUsers() {
         return Users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(ArrayList<String> users) {
         Users = users;
     }
 
