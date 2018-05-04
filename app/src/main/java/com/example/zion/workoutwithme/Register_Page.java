@@ -21,7 +21,6 @@ public class Register_Page extends AppCompatActivity {
 
     private TextInputEditText email, password, passwordConfirm, firstName, lastName;
     private FirebaseAuth mAuth;
-    public static final String EXTRA_REG2PROFILE_FN_LN_EMAIL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +31,16 @@ public class Register_Page extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
         mAuth = FirebaseAuth.getInstance();
-// MAKING AUTHENTICATION
-
+        // MAKING AUTHENTICATION
 
         final ProgressDialog mDialog = new ProgressDialog(Register_Page.this);
         mDialog.setMessage("Please Wait...");
-
 
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
         passwordConfirm = findViewById(R.id.etConfirmPassword);
         firstName = findViewById(R.id.etFirstName);
         lastName = findViewById(R.id.etLastName);
-
 
         Button registerButton = findViewById(R.id.bRegister);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +54,6 @@ public class Register_Page extends AppCompatActivity {
                     mDialog.dismiss();
                     return;
                 }
-
 
                 // Check if the user ID already exists
                 final String cruzID = email.getText().toString().replaceAll("@ucsc.edu","");
@@ -95,8 +90,6 @@ public class Register_Page extends AppCompatActivity {
 
                         // Goes to Profile page on successful register & put extra for FN, LN, & Email
                         Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
-                        profile.putExtra(EXTRA_REG2PROFILE_FN_LN_EMAIL, new String[] {firstName.getText().toString(),
-                                lastName.getText().toString(), email.getText().toString()});
                         startActivity(profile);
 
                     } else {

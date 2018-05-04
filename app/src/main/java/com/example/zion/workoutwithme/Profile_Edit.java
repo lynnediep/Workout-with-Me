@@ -14,17 +14,14 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Profile_Edit extends AppCompatActivity {
     EditText nameText;
     EditText bioText;
     EditText interestText;
     Button changeActivityButton;
-    String[] fnLnEmail;
-    int flag = 0;
-    public static final String EXTRA_PROFILE2NEWSFEED_FN_LN_EMAIL = "";
-    public static final String EXTRA_PROFILE2NEWSFEED_BIO = "";
-    String theBio = "Biography";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,29 +33,11 @@ public class Profile_Edit extends AppCompatActivity {
         interestText = (EditText) findViewById(R.id.Interest_editText);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseAuth mAuth;
         final DatabaseReference table_user = database.getReference("User");
 
-        // Get the Intent that started this activity and extract the strings
-
-        if(flag == 0){
-            Intent intent = getIntent();
-            fnLnEmail = intent.getStringArrayExtra(Register_Page.EXTRA_REG2PROFILE_FN_LN_EMAIL);
-            flag = 1;
-        }
-
-        if(flag == 0){
-            Bundle recieveExtras = getIntent().getExtras();
-            fnLnEmail = recieveExtras.getStringArray(activity_newsfeed.EXTRA_NEWSFEED2PROFILE_FN_LN_EMAIL);
-            theBio = recieveExtras.getString(activity_newsfeed.EXTRA_NEWSFEED2PROFILE_BIO);
-            bioText.setText(theBio);
-        }
-
-        // Capture the layout's TextView & set the string as its text
-        if(fnLnEmail[0] != null && fnLnEmail[1] != null){
-            nameText.setText(fnLnEmail[0] + " " + fnLnEmail[1]);
-        }
-
-        final String cruzID = fnLnEmail[2].replaceAll("@ucsc.edu","");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         changeActivityButton = (Button)findViewById(R.id.save);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -66,19 +45,8 @@ public class Profile_Edit extends AppCompatActivity {
             public void onClick(View v) {
                 String bioDB = "bio";
                 String nameDB = "name";
-                table_user.child(cruzID).child(nameDB).setValue(nameText.getText().toString());
-                table_user.child(cruzID).child(bioDB).setValue(bioText.getText().toString());
-
-                if(table_user.child(cruzID).child(bioDB).getKey() != null){
-                    theBio = table_user.child(cruzID).child(bioDB).getKey();
-                }
 
                 Intent intent = new Intent(Profile_Edit.this, activity_newsfeed.class);
-                Bundle sendExtras = new Bundle();
-                sendExtras.putStringArray(EXTRA_PROFILE2NEWSFEED_FN_LN_EMAIL, new String[] {fnLnEmail[0],
-                        fnLnEmail[1], fnLnEmail[2]});
-                sendExtras.putString(EXTRA_PROFILE2NEWSFEED_BIO, theBio);
-                intent.putExtras(sendExtras);
                 startActivity(intent);
             }
 

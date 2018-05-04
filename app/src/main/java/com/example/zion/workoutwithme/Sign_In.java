@@ -32,9 +32,6 @@ public class Sign_In extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
 
-
-
-
         bSignIn = findViewById(R.id.signInButton);
         bSignIn.setOnClickListener(new View.OnClickListener() {
 
@@ -53,7 +50,6 @@ public class Sign_In extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Check if user exists
                         final String cruzID = email.getText().toString().replaceAll("@ucsc.edu","");
-
 
                         if(dataSnapshot.child(cruzID).exists()) {
                             // Get User Info
