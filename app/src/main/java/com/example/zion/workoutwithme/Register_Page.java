@@ -21,6 +21,7 @@ public class Register_Page extends AppCompatActivity {
 
     private TextInputEditText email, password, passwordConfirm, firstName, lastName;
     private FirebaseAuth mAuth;
+    public static final String CURRENT_USER_ID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class Register_Page extends AppCompatActivity {
 
                         // Goes to Profile page on successful register & put extra for FN, LN, & Email
                         Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
+                        profile.putExtra(CURRENT_USER_ID, cruzID);
                         startActivity(profile);
 
                     } else {

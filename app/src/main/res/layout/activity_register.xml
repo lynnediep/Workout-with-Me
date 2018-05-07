@@ -10,15 +10,10 @@
         android:id="@+id/bRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="148dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="80dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.TextInputLayout
@@ -136,12 +131,8 @@
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="18dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginLeft="147dp"
-        android:layout_marginRight="149dp"
-        android:layout_marginStart="147dp"
         android:layout_marginTop="18dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"

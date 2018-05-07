@@ -13,6 +13,7 @@ public class activity_newsfeed extends AppCompatActivity {
 
     Button changeActivityButton;
     Button changeActivityButton2;
+    String cruzID;
     public static final String CURRENT_USER_ID = "";
 
     @Override
@@ -22,19 +23,22 @@ public class activity_newsfeed extends AppCompatActivity {
 
         // Current User
         Intent userInfo = getIntent();
-        final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
+        cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
+        if(cruzID == "" || cruzID == null){
+            cruzID = userInfo.getStringExtra(Profile_Edit.CURRENT_USER_ID);
+        }
 
         // User Database and Event Database loaded
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference current_user = database.getReference("User");
         DatabaseReference event_table = database.getReference("Event");
 
-
         changeActivityButton = (Button)findViewById(R.id.edit_profile);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity_newsfeed.this, Profile_Edit.class);
+                intent.putExtra(CURRENT_USER_ID, cruzID);
                 startActivity(intent);
             }
         });
