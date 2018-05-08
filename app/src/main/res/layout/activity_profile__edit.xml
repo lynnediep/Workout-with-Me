@@ -24,8 +24,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:ems="10"
+        android:hint="Name"
+        android:maxLength="20"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Profile_img" />
 
@@ -37,23 +38,52 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:ems="10"
+        android:hint="Biography"
+        android:maxLength="150"
         android:inputType="textMultiLine"
-        android:text="Biography"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Interests_editText" />
+
+    <EditText
+        android:id="@+id/Year_editText"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Yr"
+        android:maxLength="2"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name_editText" />
 
     <EditText
-        android:id="@+id/Interest_editText"
+        android:id="@+id/Major_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Interests"
+        android:hint="Major"
+        android:maxLength="15"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Bio_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/Year_editText" />
+
+    <EditText
+        android:id="@+id/Interests_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Interests"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Major_editText" />
 
     <Button
         android:id="@+id/save"

@@ -20,12 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+
 public class Profile_Edit extends AppCompatActivity {
-    EditText nameText;
-    EditText bioText;
-    EditText interestText;
+    EditText nameText,yearText, majorText, interestText, bioText;
     Button changeActivityButton;
     User currentUser;
+    String[] interests;
     public static final String CURRENT_USER_ID = "";
     private static final String TAG = "";
 
@@ -39,8 +40,10 @@ public class Profile_Edit extends AppCompatActivity {
         final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
 
         nameText = (EditText) findViewById(R.id.Name_editText);
+        yearText = (EditText) findViewById(R.id.Year_editText);
+        majorText = (EditText) findViewById(R.id.Major_editText);
+        interestText = (EditText) findViewById(R.id.Interests_editText);
         bioText = (EditText) findViewById(R.id.Bio_editText);
-        interestText = (EditText) findViewById(R.id.Interest_editText);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("User").child(cruzID);
@@ -58,15 +61,44 @@ public class Profile_Edit extends AppCompatActivity {
                     if (dataSnapshot.getValue() != null) {
                         try {
                             currentUser = dataSnapshot.getValue(User.class);
-                            nameText.setText(currentUser.getName());
-                            bioText.setText(currentUser.getBio());
+
+                            if(currentUser.getName() != null){
+                                nameText.setText(currentUser.getName());
+                            }
+
+                            if(currentUser.getYear() != null) {
+                                yearText.setText(currentUser.getYear());
+                            }
+
+                            if(currentUser.getMajor() != null) {
+                                majorText.setText(currentUser.getMajor());
+                            }
+
+                            if(currentUser.getInterests() != null) {
+                                interestText.setText(Arrays.toString(currentUser.getInterests()).replaceAll("\\[|\\]", ""));
+                            }
+
+                            if(currentUser.getBio() != null) {
+                                bioText.setText(currentUser.getBio());
+                            }
+
 
                             changeActivityButton = (Button) findViewById(R.id.save);
                             changeActivityButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(Profile_Edit.this, activity_newsfeed.class);
+
+                                    /*
+                                    if(interestText.getText().toString() != null) {
+                                        interests = interestText.getText().toString().split(" ");
+                                    }
+                                    */
+
                                     currentUser.setName(nameText.getText().toString());
+                                    currentUser.setYear(yearText.getText().toString());
+                                    currentUser.setMajor(majorText.getText().toString());
+                                    currentUser.setInterests(interests);
                                     currentUser.setBio(bioText.getText().toString());
                                     userRef.setValue(currentUser);
 
@@ -74,8 +106,6 @@ public class Profile_Edit extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
-
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
