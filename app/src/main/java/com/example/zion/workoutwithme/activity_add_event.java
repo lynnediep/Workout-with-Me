@@ -1,6 +1,7 @@
 package com.example.zion.workoutwithme;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,10 +15,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static java.util.logging.Logger.global;
+
 public class activity_add_event extends AppCompatActivity {
 
     Button changeActivityButton;
     EditText etTitle, etLocation, etTime, etDate, etDescription, etMax;
+    String count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,7 @@ public class activity_add_event extends AppCompatActivity {
         // Database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("Event");
+        final DatabaseReference eventCount = database.getReference("event_count");
 
 
         etTitle = findViewById(R.id.enter_title);
@@ -55,7 +60,7 @@ public class activity_add_event extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Make the new event
-                        Event event = new Event(
+                        final Event event = new Event(
                                 etTitle.getText().toString(),
                                 etDescription.getText().toString(),
                                 etTime.getText().toString(),
@@ -66,9 +71,24 @@ public class activity_add_event extends AppCompatActivity {
 
                         );
                         // Makes the new event in the database and updates the event count
-                        String count = dataSnapshot.child("event_count").getValue(String.class);
-                        table_user.child("event" + count).setValue(event);
-                        table_user.child("event_count").setValue(Integer.toString(Integer.parseInt(count) + 1));
+                        eventCount.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                count = dataSnapshot.child("count").getValue(String.class);
+                                eventCount.child("count").setValue(Integer.toString(Integer.parseInt(count) + 1));
+                                table_user.child("event" + count).setValue(event);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        //count = dataSnapshot.child("event_count").getValue(String.class);
+
+
+                        //table_user.child("event_count").setValue(Integer.toString(Integer.parseInt(count) + 1));
                     }
 
                     @Override
