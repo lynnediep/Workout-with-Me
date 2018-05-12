@@ -69,11 +69,23 @@ public class activity_newsfeed extends AppCompatActivity {
                 .child("Event");
 
 
-        FirebaseListAdapter<Event> adapter = new FirebaseListAdapter<Event>(this, Event.class, android.R.layout.simple_list_item_1, event_table) {
+        FirebaseListAdapter<Event> adapter = new FirebaseListAdapter<Event>(this, Event.class, R.layout.event, event_table) {
             @Override
             protected void populateView(View v, Event model, int position) {
-                TextView eventName = v.findViewById(android.R.id.text1);
+                TextView eventName = v.findViewById(R.id.event_name);
+                TextView eventDescription = v.findViewById(R.id.event_description);
+                TextView eventDate = v.findViewById(R.id.event_date);
+                TextView eventTime = v.findViewById(R.id.event_time);
+                TextView eventLocation = v.findViewById(R.id.event_location);
+                TextView eventUsers = v.findViewById(R.id.event_users);
+
+
                 eventName.setText(model.getTitle());
+                eventDescription.setText(model.getDescription());
+                eventDate.setText(model.getDate());
+                eventTime.setText(model.getTime());
+                eventLocation.setText(model.getLocation());
+                eventUsers.setText(Integer.toString(model.getUsers().size()) + " / " + Integer.toString(model.getMax_Count()));
             }
         };
         ListView newsfeed = (ListView) findViewById(R.id.newsfeed);
