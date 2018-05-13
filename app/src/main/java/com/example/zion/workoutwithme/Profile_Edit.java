@@ -6,25 +6,30 @@ package com.example.zion.workoutwithme;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ImageView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -35,11 +40,13 @@ public class Profile_Edit extends AppCompatActivity {
     Button refreshInterests;
     ListView interestsListView;
     User currentUser;
+    ImageView profilePic;
     ArrayList<String> interestsArray = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     String finalInterests;
     public static final String CURRENT_USER_ID = "";
     private static final String TAG = "";
+    public static final int GET_FROM_GALLERY = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +59,7 @@ public class Profile_Edit extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         */
 
-        // Current User
-        Intent userInfo = getIntent();
-        final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
-
+        // References for each view
         nameText = (EditText) findViewById(R.id.Name_editText);
         yearText = (EditText) findViewById(R.id.Year_editText);
         majorText = (EditText) findViewById(R.id.Major_editText);
@@ -64,8 +68,50 @@ public class Profile_Edit extends AppCompatActivity {
         addInterestsBtn = (Button) findViewById(R.id.addInterests_Button);
         interestsListView = (ListView) findViewById(R.id.Interests_ListView);
         refreshInterests = (Button) findViewById(R.id.Refresh_Button);
+        profilePic = (ImageView) findViewById(R.id.Profile_img);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Profile_Edit.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Setting profile pic
+        profilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
+                        GET_FROM_GALLERY);
+            }
+        });
 
 
+
+        // Current User
+        Intent userInfo = getIntent();
+        final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
+
+        // Instantiate database & set up user reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("User").child(cruzID);
 
@@ -77,6 +123,7 @@ public class Profile_Edit extends AppCompatActivity {
                         try {
                             currentUser = dataSnapshot.getValue(User.class);
 
+                            // Set EditText's to current profile info if it exists
                             if(currentUser.getName() != null){
                                 nameText.setText(currentUser.getName());
                             }
@@ -103,6 +150,7 @@ public class Profile_Edit extends AppCompatActivity {
                                 bioText.setText(currentUser.getBio());
                             }
 
+                            // Add interests one by one
                             addInterestsBtn.setOnClickListener(new View.OnClickListener(){
                                 String getInput;
                                 @Override
@@ -128,6 +176,7 @@ public class Profile_Edit extends AppCompatActivity {
                                 }
                             });
 
+                            // Refresh button, maybe remove
                             refreshInterests.setOnClickListener(new View.OnClickListener(){
                                 @Override
                                 public void onClick(View view) {
@@ -136,6 +185,7 @@ public class Profile_Edit extends AppCompatActivity {
                                 }
                             });
 
+                            // Remove an interest by clicking on it in the ListView
                             interestsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -154,6 +204,7 @@ public class Profile_Edit extends AppCompatActivity {
                                 }
                             });
 
+                            // Save profile with inputted info
                             changeActivityButton = (Button) findViewById(R.id.save);
                             changeActivityButton.setOnClickListener(new View.OnClickListener() {
 
