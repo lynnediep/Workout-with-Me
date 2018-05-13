@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Profile_Edit">
@@ -10,7 +11,7 @@
         android:id="@+id/Profile_img"
         android:layout_width="132dp"
         android:layout_height="131dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,81 +20,130 @@
     <EditText
         android:id="@+id/Name_editText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Name"
-        android:maxLength="20"
         android:inputType="textPersonName"
+        android:maxLength="20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Profile_img" />
 
     <EditText
         android:id="@+id/Bio_editText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Biography"
-        android:maxLength="150"
         android:inputType="textMultiLine"
+        android:maxLength="150"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Interests_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/Major_editText" />
 
     <EditText
         android:id="@+id/Year_editText"
         android:layout_width="87dp"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Yr"
-        android:maxLength="2"
         android:inputType="text"
+        android:maxLength="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name_editText" />
 
     <EditText
         android:id="@+id/Major_editText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="39dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Major"
-        android:maxLength="15"
         android:inputType="text"
+        android:maxLength="20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Year_editText" />
 
     <EditText
         android:id="@+id/Interests_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="216dp"
+        android:layout_height="39dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Interests"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Major_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/Bio_editText" />
 
     <Button
         android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Interests_ListView"
+        app:layout_constraintTop_toBottomOf="@+id/addInterests_Button"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/addInterests_Button"
+        android:layout_width="120dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="352dp"
+        android:text="Add Interest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Interests_editText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Refresh_Button"
+        android:layout_width="120dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="388dp"
+        android:text="Refresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Interests_editText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/Interests_ListView"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
+        android:layout_width="214dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:maxLength="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Interests_editText" />
+
 
 </android.support.constraint.ConstraintLayout>

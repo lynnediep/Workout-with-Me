@@ -8,7 +8,7 @@ public class User {
     private String Year;
     private String Email;
     private String Major;
-    private String[] Interests;
+    private String Interests;
 
 
     public User() {
@@ -20,7 +20,7 @@ public class User {
         this.Email = email;
     }
 
-    public User(String name, String password, String bio, String year, String email, String major, String[] interests) {
+    public User(String name, String password, String bio, String year, String email, String major, String interests) {
         this.Name = name;
         this.Password = password;
         this.Bio = bio;
@@ -78,11 +78,11 @@ public class User {
         Major = major;
     }
 
-    public String[] getInterests() {
+    public String getInterests() {
         return Interests;
     }
 
-    public void setInterests(String[] interests) {
+    public void setInterests(String interests) {
         this.Interests = interests;
     }
 }
