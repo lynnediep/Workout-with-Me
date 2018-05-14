@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,11 +19,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.ActionCodeSettings;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class Register_Page extends AppCompatActivity {
 
     private TextInputEditText email, password, passwordConfirm, firstName, lastName;
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
     public static final String CURRENT_USER_ID = "";
 
     @Override
@@ -31,8 +37,7 @@ public class Register_Page extends AppCompatActivity {
         // Databases
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
-        mAuth = FirebaseAuth.getInstance();
-        // MAKING AUTHENTICATION
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final ProgressDialog mDialog = new ProgressDialog(Register_Page.this);
         mDialog.setMessage("Please Wait...");
@@ -108,7 +113,25 @@ public class Register_Page extends AppCompatActivity {
                 }
 
 
+                //*************** Adding Authentication *********************************
+
+
+                final FirebaseUser user =  mAuth.getCurrentUser();
+                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Register_Page.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+
+
+                // ***********************************************************************
+
+
+
             }
+
         });
 
         // Go back to the main sign up page
@@ -155,5 +178,26 @@ public class Register_Page extends AppCompatActivity {
         }
             return false;
     }
+
+
+
+    // ***********************MAKING AUTHENTICATION*****************************
+
+//    ActionCodeSettings actionCodeSettings =
+//            ActionCodeSettings.newBuilder()
+//                    // URL you want to redirect back to. The domain (www.example.com) for this
+//                    // URL must be whitelisted in the Firebase Console.
+//                    .setUrl("com.example.zion.workoutwithme")
+//                    // This must be true
+//                    .setHandleCodeInApp(true)
+//                    .setIOSBundleId("com.example.ios")
+//                    .setAndroidPackageName(
+//                            "com.example.android",
+//                            true, /* installIfNotAvailable */
+//                            12    /* minimumVersion */)
+//                    .build();
+
+
+    // ***************************************************************************
 
 }
