@@ -13,6 +13,9 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +25,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ImageView;
+import android.support.v7.widget.Toolbar;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +64,10 @@ public class Profile_Edit extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         */
+
+        //toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // References for each view
         nameText = (EditText) findViewById(R.id.Name_editText);
@@ -271,5 +281,32 @@ public class Profile_Edit extends AppCompatActivity {
                 Log.w(TAG, "onCancelled", databaseError.toException());
             }
         });
+
     }
+
+    // ********************************** This is the code for logout **********************
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menuLogout:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(this, Log_In.class));
+                break;
+        }
+        return true;
+    }
+
+    //************************************************************************
+
+
 }
