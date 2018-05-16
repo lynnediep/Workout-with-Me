@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -22,8 +24,10 @@ public class activity_newsfeed extends AppCompatActivity {
     Button changeActivityButton;
     Button changeActivityButton2;
     String cruzID;
+    FirebaseListAdapter<Event> adapter;
 
     public static final String CURRENT_USER_ID = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,7 @@ public class activity_newsfeed extends AppCompatActivity {
                 .child("Event");
 
 
-        FirebaseListAdapter<Event> adapter = new FirebaseListAdapter<Event>(this, Event.class, R.layout.event, event_table) {
+        adapter = new FirebaseListAdapter<Event>(this, Event.class, R.layout.event, event_table) {
             @Override
             protected void populateView(View v, Event model, int position) {
                 TextView eventName = v.findViewById(R.id.event_name);
@@ -78,7 +82,6 @@ public class activity_newsfeed extends AppCompatActivity {
                 TextView eventTime = v.findViewById(R.id.event_time);
                 TextView eventLocation = v.findViewById(R.id.event_location);
                 TextView eventUsers = v.findViewById(R.id.event_users);
-
 
                 eventName.setText(model.getTitle());
                 eventDescription.setText(model.getDescription());
@@ -90,6 +93,32 @@ public class activity_newsfeed extends AppCompatActivity {
         };
         ListView newsfeed = (ListView) findViewById(R.id.newsfeed);
         newsfeed.setAdapter(adapter);
+        newsfeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent details = new Intent(activity_newsfeed.this, event_detail.class);
+
+                Event clickedEvent = adapter.getItem(i);
+                // Put all information of the event that was just clicked into next page
+                Bundle extras = new Bundle();
+                extras.putString("EVENT_TITLE", clickedEvent.getTitle());
+                extras.putString("EVENT_DESCRIPTION", clickedEvent.getDescription());
+                extras.putString("EVENT_DATE", clickedEvent.getDate());
+                extras.putString("EVENT_TIME", clickedEvent.getTime());
+                extras.putString("EVENT_LOCATION", clickedEvent.getLocation());
+                extras.putString("EVENT_HOST", clickedEvent.getHost());
+                extras.putString("CURRENT_USER", cruzID);
+                extras.putInt("EVENT_MAX_USERS", clickedEvent.getMax_Count());
+                extras.putInt("EVENT_USER_COUNT", clickedEvent.getUser_Count());
+                extras.putStringArrayList("EVENT_USERS", clickedEvent.getUsers());
+                extras.putString("EVENT_COUNT", clickedEvent.getCount());
+
+                details.putExtras(extras);
+
+                startActivity(details);
+            }
+        });
+
 
 
     }

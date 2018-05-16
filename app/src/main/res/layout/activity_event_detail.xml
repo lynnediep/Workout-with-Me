@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".event_detail">
+
+    <TextView
+        android:id="@+id/eventTitle"
+        android:layout_width="252dp"
+        android:layout_height="92dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
+        android:text="Title"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hostPicture"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/joinButton"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="31dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="9dp"
+        android:text="Join"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+
+    <ImageView
+        android:id="@+id/hostPicture"
+        android:layout_width="125dp"
+        android:layout_height="158dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvLocation"
+        app:layout_constraintEnd_toStartOf="@+id/eventTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ripped_slug" />
+
+    <TextView
+        android:id="@+id/eventDescription"
+        android:layout_width="365dp"
+        android:layout_height="270dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="Description"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/joinButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventLocation" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="113dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Location:"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/eventDescription"
+        app:layout_constraintEnd_toStartOf="@+id/eventLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hostPicture" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="62dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:text="Date:"
+        android:textSize="24dp"
+        app:layout_constraintStart_toEndOf="@+id/hostPicture"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
+
+    <TextView
+        android:id="@+id/eventLocation"
+        android:layout_width="251dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="3dp"
+        android:text="Location"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/eventDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLocation"
+        app:layout_constraintTop_toBottomOf="@+id/eventTime" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:text="Time:"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/eventTime"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/eventTitle" />
+
+    <TextView
+        android:id="@+id/eventDate"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:text="Date"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/eventLocation"
+        app:layout_constraintEnd_toStartOf="@+id/eventTime"
+        app:layout_constraintStart_toEndOf="@+id/hostPicture"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+    <TextView
+        android:id="@+id/eventTime"
+        android:layout_width="130dp"
+        android:layout_height="37dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:gravity="center"
+        android:text="Time"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/eventLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/eventDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+
+</android.support.constraint.ConstraintLayout>
