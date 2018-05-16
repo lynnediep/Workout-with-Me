@@ -32,7 +32,7 @@
         android:layout_marginRight="163dp"
         android:layout_marginStart="163dp"
         android:layout_marginTop="58dp"
-        android:text="Work Out With Me"
+        android:text="Workout With Me"
         android:textSize="32dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
