@@ -59,22 +59,23 @@ public class activity_add_event extends AppCompatActivity {
                 table_user.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Make the new event
-                        final Event event = new Event(
-                                etTitle.getText().toString(),
-                                etDescription.getText().toString(),
-                                etTime.getText().toString(),
-                                etDate.getText().toString(),
-                                etLocation.getText().toString(),
-                                cruzID,
-                                Integer.parseInt(etMax.getText().toString())
-
-                        );
                         // Makes the new event in the database and updates the event count
                         eventCount.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 count = dataSnapshot.child("count").getValue(String.class);
+
+                                final Event event = new Event(
+                                        etTitle.getText().toString(),
+                                        etDescription.getText().toString(),
+                                        etTime.getText().toString(),
+                                        etDate.getText().toString(),
+                                        etLocation.getText().toString(),
+                                        cruzID,
+                                        Integer.parseInt(etMax.getText().toString()),
+                                        count
+                                );
+
                                 eventCount.child("count").setValue(Integer.toString(Integer.parseInt(count) + 1));
                                 table_user.child("event" + count).setValue(event);
                             }

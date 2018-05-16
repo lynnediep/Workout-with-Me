@@ -17,11 +17,20 @@ public class Event {
     private ArrayList<String> Users = new ArrayList<String>();
     private int User_Count;
     private int Max_Count;
+    private String Count;
 
     public Event() {
     }
 
-    public Event(String title, String description, String time, String date, String location, String host, int maxCount) {
+    public String getCount() {
+        return Count;
+    }
+
+    public void setCount(String count) {
+        Count = count;
+    }
+
+    public Event(String title, String description, String time, String date, String location, String host, int maxCount, String count) {
         Title = title;
         Description = description;
         Time = time;
@@ -31,6 +40,8 @@ public class Event {
         Users.add(host);
         User_Count = 1;
         Max_Count = maxCount;
+        Count = count;
+
     }
 
     public String getTitle() {
