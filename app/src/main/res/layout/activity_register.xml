@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
