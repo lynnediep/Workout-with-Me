@@ -105,8 +105,6 @@ public class Profile_Edit extends AppCompatActivity {
             }
         });
 
-
-
         // Current User
         Intent userInfo = getIntent();
         final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
@@ -165,11 +163,10 @@ public class Profile_Edit extends AppCompatActivity {
                                                 Toast.LENGTH_LONG).show();
                                     }
                                     else{
+                                        interestsArray.add(getInput);
                                         adapter = new ArrayAdapter<String>
                                                 (Profile_Edit.this, android.R.layout.simple_list_item_1,
                                                         interestsArray);
-                                        interestsArray.add(getInput);
-                                        adapter.notifyDataSetChanged();
                                         interestsListView.setAdapter(adapter);
                                         interestText.setText("");
                                     }
