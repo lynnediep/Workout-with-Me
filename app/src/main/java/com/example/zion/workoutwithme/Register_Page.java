@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -22,11 +23,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 public class Register_Page extends AppCompatActivity {
 
-    private TextInputEditText email, password, passwordConfirm, firstName, lastName;
+    private TextInputEditText email, password,passwordConfirm, firstName, lastName;
+
+
     FirebaseAuth mAuth;
+
     public static final String CURRENT_USER_ID = "";
 
     @Override
@@ -94,8 +99,31 @@ public class Register_Page extends AppCompatActivity {
                         table_user.child(cruzID).setValue(user);
                         mDialog.dismiss();
 
+                        //************************ adding fire base create user methods *******************
+
+                        String etEmail = email.getText().toString();
+                        String etPassword = password.getText().toString();
+
+                        mAuth.createUserWithEmailAndPassword(etEmail, etPassword)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            //user is successfully registered
+                                            // we then go to the profile activity
+                                            finish();
+
+                                        }
+                                    }
+                                });
+
+
+                        // ***************************************************************************
+
+
+
                         // Goes to Profile page on successful register & put extra for FN, LN, & Email
-                        Intent profile = new Intent(Register_Page.this, Profile_Edit.class);
+                        Intent profile = new Intent(Register_Page.this, auth_user.class);
                         profile.putExtra(CURRENT_USER_ID, cruzID);
                         startActivity(profile);
 
@@ -111,23 +139,6 @@ public class Register_Page extends AppCompatActivity {
                     password.setError("Password does not match");
                     passwordConfirm.setError("Password does not match");
                 }
-
-
-                //*************** Adding Authentication *********************************
-
-
-                final FirebaseUser user =  mAuth.getCurrentUser();
-                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Register_Page.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
-                    }
-
-                });
-
-
-                // ***********************************************************************
-
 
 
             }
@@ -177,6 +188,15 @@ public class Register_Page extends AppCompatActivity {
             return true;
         }
             return false;
+    }
+
+
+
+    private void registerUser(){
+
+
+
+
     }
 
 

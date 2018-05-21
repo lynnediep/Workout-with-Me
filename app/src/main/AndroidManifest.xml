@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Log_In"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Profile_Edit"
             android:screenOrientation="portrait" />
@@ -38,7 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".event_detail"></activity>
+        <activity android:name=".event_detail" />
+        <activity android:name=".auth_user"></activity>
     </application>
 
 </manifest>

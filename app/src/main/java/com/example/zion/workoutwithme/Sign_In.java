@@ -9,18 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.AuthResult;
 
 public class Sign_In extends AppCompatActivity {
 
     TextInputEditText email, password;
     Button bSignIn;
     public static final String CURRENT_USER_ID = "";
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,8 @@ public class Sign_In extends AppCompatActivity {
         password = findViewById(R.id.password);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         final DatabaseReference table_user = database.getReference("User");
 
         bSignIn = findViewById(R.id.signInButton);
@@ -57,6 +65,28 @@ public class Sign_In extends AppCompatActivity {
                             mDialog.dismiss();
                             User user = dataSnapshot.child(cruzID).getValue(User.class);
                             if(user.getPassword().equals(password.getText().toString())) {
+
+
+                                // ******************************** Sign in method for firebase ***********************
+
+                                String etEmail = email.getText().toString();
+                                String etPassword = password.getText().toString();
+
+                                mAuth.createUserWithEmailAndPassword(etEmail, etPassword)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    //user is successfully registered
+                                                    // we then go to the profile activity
+                                                    finish();
+
+                                                }
+                                            }
+                                        });
+
+                                // ***********************************************************************************
+
                                 Toast.makeText(Sign_In.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
                                 Intent home = new Intent(Sign_In.this, activity_newsfeed.class);
 
