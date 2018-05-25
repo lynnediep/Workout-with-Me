@@ -61,7 +61,7 @@ public class auth_user extends AppCompatActivity implements View.OnClickListener
         }else {
 
             authText.setText("Email Not Verified (Click to Verify)");
-            authText.setOnClickListener(new View.OnClickListener() {
+            authButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
 
