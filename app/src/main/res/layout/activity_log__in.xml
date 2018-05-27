@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Log_In">
 
     <Button
@@ -11,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="78dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginStart="65dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="385dp"
+        android:background="@drawable/roundbutton"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="78dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="45dp"
         android:layout_marginLeft="63dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginRight="45dp"
         android:layout_marginStart="63dp"
         android:layout_marginTop="385dp"
+        android:background="@drawable/roundbutton"
         android:text="Sign In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,13 +42,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/logo" />
+        app:srcCompat="@drawable/logo2" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,14 +5,15 @@
     android:id="@+id/clayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayback"
     tools:context=".Profile_Edit">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="@color/ucsc_Blue"/>
+        android:background="@color/background"
+        android:padding="20dp" />
 
     <ImageView
         android:id="@+id/Profile_img"
@@ -98,18 +99,15 @@
         android:layout_width="88dp"
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/roundbutton"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Interests_ListView"
-        app:layout_constraintTop_toBottomOf="@+id/addInterests_Button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/Refresh_Button"
+        app:layout_constraintVertical_bias="0.896" />
 
     <Button
         android:id="@+id/addInterests_Button"
@@ -119,9 +117,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="352dp"
+        android:layout_marginTop="292dp"
+        android:background="@drawable/roundbutton"
         android:text="Add Interest"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Interests_editText"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,11 +133,13 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="388dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundbutton"
         android:text="Refresh"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/Interests_editText"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/addInterests_Button" />
 
     <ListView
         android:id="@+id/Interests_ListView"
