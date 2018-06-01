@@ -72,7 +72,7 @@ public class Sign_In extends AppCompatActivity {
                                 String etEmail = email.getText().toString();
                                 String etPassword = password.getText().toString();
 
-                                mAuth.createUserWithEmailAndPassword(etEmail, etPassword)
+                                mAuth.signInWithEmailAndPassword(etEmail, etPassword)
                                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
