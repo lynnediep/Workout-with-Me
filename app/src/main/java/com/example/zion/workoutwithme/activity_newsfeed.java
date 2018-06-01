@@ -39,6 +39,9 @@ public class activity_newsfeed extends AppCompatActivity {
         cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
         if(cruzID == "" || cruzID == null){
             cruzID = userInfo.getStringExtra(Profile_Edit.CURRENT_USER_ID);
+            if(cruzID == "" || cruzID == null) {
+                cruzID = userInfo.getStringExtra(event_detail.CURRENT_USER_ID);
+            }
         }
 
         // User Database and Event Database loaded
