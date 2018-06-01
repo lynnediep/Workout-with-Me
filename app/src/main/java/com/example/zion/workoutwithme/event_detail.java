@@ -19,11 +19,13 @@ import java.util.ArrayList;
 public class event_detail extends AppCompatActivity {
 
     TextView title, description, date, time, location;
-    Button joinButton;
+    Button joinButton, leaveButton;
     ArrayList<String> users;
 
     FirebaseDatabase database;
     DatabaseReference event;
+
+    public static String CURRENT_USER_ID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,8 @@ public class event_detail extends AppCompatActivity {
         time.setText(event_time);
         location.setText(event_location);
 
-        joinButton = findViewById(R.id.joinButton);
 
+        joinButton = findViewById(R.id.joinButton);
         if(users.contains(cruzID)) {
             joinButton.setText("JOINED");
         } else if (event_user_count == event_max_users){
@@ -72,8 +74,6 @@ public class event_detail extends AppCompatActivity {
         } else {
             joinButton.setText("Join");
         }
-
-
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +93,9 @@ public class event_detail extends AppCompatActivity {
                             event.child("user_Count").setValue(users.size());
                             Toast.makeText(event_detail.this, "Successfully joined event", Toast.LENGTH_SHORT).show();
                             joinButton.setText("JOINED");
+                            Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
+                            intent.putExtra(CURRENT_USER_ID, cruzID);
+                            startActivity(intent);
 
                         }
 
@@ -102,6 +105,42 @@ public class event_detail extends AppCompatActivity {
                         }
                     });
 
+
+                }
+
+            }
+        });
+
+        leaveButton = findViewById(R.id.leaveActivity);
+        leaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(joinButton.getText().toString().matches("JOINED")) {
+
+                    event.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            users.remove(cruzID);
+                            event.child("users").setValue(users);
+                            event.child("user_Count").setValue(users.size());
+                            Toast.makeText(event_detail.this, "Successfully left event", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
+                            intent.putExtra(CURRENT_USER_ID, cruzID);
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                } else {
+
+                    Toast.makeText(event_detail.this, "You are not in the event", Toast.LENGTH_SHORT).show();
 
                 }
 
