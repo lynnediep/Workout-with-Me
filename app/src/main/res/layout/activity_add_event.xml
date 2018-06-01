@@ -100,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enter_time" />
 
-    <EditText
+    <TextView
         android:id="@+id/enter_date"
         android:layout_width="259dp"
         android:layout_height="wrap_content"
@@ -187,5 +187,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon" />
+
+
 
 </android.support.constraint.ConstraintLayout>
