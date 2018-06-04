@@ -33,13 +33,19 @@ import static java.util.logging.Logger.global;
 public class activity_add_event extends AppCompatActivity {
 
     Button changeActivityButton;
-    EditText etTitle, etLocation, etDescription, etMax, etTime;
+    EditText etTitle, etLocation, etDescription, etMax;
     String count;
-    TextView etDate;
+    TextView etDate, etTime;
 
     private static final String TAG = "activity_add_event";
-    private TextView mEnter_Date;
+    private TextView mEnter_Date, mEnter_Time;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    TimePickerDialog timePickerDialog;
+        Calendar calendar;
+        int currentHour;
+        int currentMinute;
+        String amPm;
 
 
     @Override
@@ -66,7 +72,7 @@ public class activity_add_event extends AppCompatActivity {
         etMax = findViewById(R.id.enter_max);
 
         mEnter_Date = (TextView) findViewById(R.id.enter_date);
-
+        mEnter_Time = (TextView) findViewById(R.id.enter_time);
 
         mEnter_Date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +103,31 @@ public class activity_add_event extends AppCompatActivity {
                 mEnter_Date.setText(date);
             }
         };
+
+        mEnter_Time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(activity_add_event.this,
+                        android.R.style.Theme_DeviceDefault_Dialog, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourofDay, int minutes) {
+                        if (hourofDay >=12){
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        mEnter_Time.setText(String.format("%02d:%02d", hourofDay, minutes) + amPm);
+                    }
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
+
+            }
+        });
 
 
 
