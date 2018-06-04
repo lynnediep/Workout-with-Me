@@ -1,4 +1,4 @@
-# Workout-with-Me
+# Workout With Me
 Workout with Me - A UCSC Fitness App <br/>
 Made for CMPS121 - Mobile Appications <br/>
 
