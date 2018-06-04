@@ -4,12 +4,14 @@ package com.example.zion.workoutwithme;
 // Lynne Diep
 // Chuong Truong
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,17 +29,24 @@ import android.widget.Toast;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Profile_Edit extends AppCompatActivity {
     EditText nameText,yearText, majorText, interestText, bioText;
@@ -49,21 +58,19 @@ public class Profile_Edit extends AppCompatActivity {
     ImageView profilePic;
     ArrayList<String> interestsArray = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-    String finalInterests;
     public static final String CURRENT_USER_ID = "";
     private static final String TAG = "";
     public static final int GET_FROM_GALLERY = 3;
+    Button btnUpload;
+    Uri filePath;
+    final int PICK_IMAGE_REQUEST = 71;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile__edit);
-
-        /*
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        */
 
         //toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -79,18 +86,22 @@ public class Profile_Edit extends AppCompatActivity {
         interestsListView = (ListView) findViewById(R.id.Interests_ListView);
         refreshInterests = (Button) findViewById(R.id.Refresh_Button);
         profilePic = (ImageView) findViewById(R.id.Profile_img);
+        btnUpload = (Button) findViewById(R.id.buttonUpload);
     }
 
+    // DISPLAY PROFILE PIC IMAGE
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Detects request codes
-        if(requestCode==GET_FROM_GALLERY && resultCode == Profile_Edit.RESULT_OK) {
-            Uri selectedImage = data.getData();
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == Profile_Edit.RESULT_OK
+                && data != null && data.getData() != null) {
+            filePath = data.getData();
             Bitmap bitmap = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
+                profilePic.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -105,16 +116,6 @@ public class Profile_Edit extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Setting profile pic
-        profilePic.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
-                        GET_FROM_GALLERY);
-            }
-        });
-
         // Current User
         Intent userInfo = getIntent();
         final String cruzID = userInfo.getStringExtra(Sign_In.CURRENT_USER_ID);
@@ -122,6 +123,53 @@ public class Profile_Edit extends AppCompatActivity {
         // Instantiate database & set up user reference
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRef = database.getReference("User").child(cruzID);
+
+        // Storage reference and uploaded file reference
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        // Setting profile pic from gallery
+        profilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST); }
+        });
+
+        // UPLOAD TO DATABASE STORAGE
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(filePath != null){
+                    final ProgressDialog progressDialog = new ProgressDialog(Profile_Edit.this);
+                    progressDialog.setTitle("Uploading...");
+                    progressDialog.show();
+
+                    StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(Profile_Edit.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(Profile_Edit.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+                }
+            }
+        });
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -259,6 +307,8 @@ public class Profile_Edit extends AppCompatActivity {
 
                                         intent.putExtra(CURRENT_USER_ID, cruzID);
                                         startActivity(intent);
+                                        Toast.makeText(getBaseContext(), "Saved profile successfully!",
+                                                Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
