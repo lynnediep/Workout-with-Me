@@ -10,7 +10,7 @@
 
         <TextView
             android:id="@+id/event_name"
-            android:layout_width="251dp"
+            android:layout_width="200dp"
             android:layout_height="58dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -25,8 +25,8 @@
 
         <TextView
             android:id="@+id/event_description"
-            android:layout_width="251dp"
-            android:layout_height="53dp"
+            android:layout_width="200dp"
+            android:layout_height="54dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/host_profile"
-            android:layout_width="103dp"
-            android:layout_height="108dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -46,14 +46,11 @@
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="51dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="119dp"
-            android:layout_marginStart="119dp"
+            android:layout_below="@+id/tvUsers"
+            android:layout_marginStart="88dp"
             android:gravity="center"
             android:text="Date:"
             android:textColor="@android:color/background_dark"
@@ -64,8 +61,8 @@
             android:id="@+id/event_date"
             android:layout_width="53dp"
             android:layout_height="20dp"
-            android:layout_above="@+id/event_time"
-            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tvDate"
+            android:layout_toEndOf="@+id/tvDate"
             android:gravity="center"
             android:hint="date" />
 
@@ -82,9 +79,8 @@
             android:id="@+id/tvLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/tvDate"
-            android:layout_marginEnd="80dp"
+            android:layout_toStartOf="@+id/event_location"
             android:gravity="center"
             android:text="Location:"
             android:textColor="@android:color/background_dark"
@@ -95,7 +91,7 @@
             android:layout_width="61dp"
             android:layout_height="37dp"
             android:layout_alignBottom="@+id/tvDate"
-            android:layout_alignEnd="@+id/event_name"
+            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:hint="location" />
 
@@ -103,11 +99,9 @@
             android:id="@+id/tvUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/tvDate"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_below="@+id/event_description"
+            android:layout_marginStart="13dp"
             android:text="Users:"
             android:textColor="@android:color/background_dark"
             android:textSize="18sp" />
@@ -116,9 +110,8 @@
             android:id="@+id/event_users"
             android:layout_width="41dp"
             android:layout_height="25dp"
-            android:layout_alignParentStart="true"
+            android:layout_alignStart="@+id/tvUsers"
             android:layout_alignTop="@+id/tvDate"
-            android:layout_marginStart="71dp"
             android:gravity="center"
             android:hint="1/2" />
 
