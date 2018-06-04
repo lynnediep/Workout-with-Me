@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class event_detail extends AppCompatActivity {
 
     TextView title, description, date, time, location;
-    Button joinButton, leaveButton;
+    Button joinButton, leaveButton, btnCancel;
     ArrayList<String> users;
 
     FirebaseDatabase database;
@@ -64,6 +64,16 @@ public class event_detail extends AppCompatActivity {
         date.setText(event_date);
         time.setText(event_time);
         location.setText(event_location);
+
+       // btnCancel = (Button)findViewById(R.id.btncancel);
+       // btnCancel.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View view) {
+       //         Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
+       //         startActivity(intent);
+       //     }
+       // });
+
 
 
         joinButton = findViewById(R.id.joinButton);
@@ -146,6 +156,8 @@ public class event_detail extends AppCompatActivity {
 
             }
         });
+
+
 
 
 

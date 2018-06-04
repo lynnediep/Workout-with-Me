@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/joinButton"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="31dp"
         android:layout_marginLeft="16dp"
@@ -158,16 +158,32 @@
 
     <Button
         android:id="@+id/leaveActivity"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="29dp"
+        android:layout_marginBottom="31dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/roundbutton"
         android:text="Leave Event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+        app:layout_constraintStart_toEndOf="@+id/joinButton"
+        app:layout_constraintTop_toBottomOf="@+id/eventDescription"
+        app:layout_constraintVertical_bias="0.531" />
+
+  <!--  <Button
+        android:id="@+id/btncancel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="46dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/roundbutton"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" /> -->
 
 </android.support.constraint.ConstraintLayout>

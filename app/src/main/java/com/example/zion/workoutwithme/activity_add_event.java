@@ -32,7 +32,7 @@ import static java.util.logging.Logger.global;
 
 public class activity_add_event extends AppCompatActivity {
 
-    Button changeActivityButton;
+    Button changeActivityButton, btnCancel;
     EditText etTitle, etLocation, etDescription, etMax;
     String count;
     TextView etDate, etTime;
@@ -128,6 +128,15 @@ public class activity_add_event extends AppCompatActivity {
 
             }
         });
+
+      //  btnCancel = (Button)findViewById(R.id.btncancel);
+      //  btnCancel.setOnClickListener(new View.OnClickListener() {
+      //      @Override
+      //      public void onClick(View view) {
+      //          Intent intent = new Intent(activity_add_event.this, activity_newsfeed.class);
+      //          startActivity(intent);
+      //      }
+      //  });
 
 
 
