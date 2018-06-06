@@ -1,29 +1,43 @@
 package com.example.zion.workoutwithme;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class event_detail extends AppCompatActivity {
 
     TextView title, description, date, time, location;
+    ImageView hostPicture;
     Button joinButton, leaveButton, btnCancel;
     ArrayList<String> users;
-
+    User currentUser;
     FirebaseDatabase database;
     DatabaseReference event;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    private static final String TAG = "";
+    String host;
 
     public static String CURRENT_USER_ID = "";
 
@@ -38,6 +52,7 @@ public class event_detail extends AppCompatActivity {
         date = findViewById(R.id.eventDate);
         time = findViewById(R.id.eventTime);
         location = findViewById(R.id.eventLocation);
+        hostPicture = findViewById(R.id.hostPicture);
 
         Intent info = getIntent();
         Bundle extras = info.getExtras();
@@ -52,6 +67,7 @@ public class event_detail extends AppCompatActivity {
         final String cruzID = extras.getString("CURRENT_USER");
         String eventHost = extras.getString("EVENT_HOST");
         users = extras.getStringArrayList("EVENT_USERS");
+        host = extras.getString("CURRENT_USER");
 
         String count = extras.getString("EVENT_COUNT");
         String eventCount = "event" + count;
@@ -74,7 +90,52 @@ public class event_detail extends AppCompatActivity {
        //     }
        // });
 
+        FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
+        // TO BE UPDATED TO HOST
+        final DatabaseReference userRef = anuthaDatabase.getReference("User").child("chvtruon");
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                try {
+                    if (dataSnapshot.getValue() != null) {
+                        currentUser = dataSnapshot.getValue(User.class);
+
+                        storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Got the download URL
+                                Glide
+                                        .with(event_detail.this)
+                                        .load(uri)
+                                        .asBitmap()
+                                        .into(hostPicture);
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                    else {
+                        Log.e("TAG", "It's null.");
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled", databaseError.toException());
+            }
+        });
 
         joinButton = findViewById(R.id.joinButton);
         if(users.contains(cruzID)) {
@@ -156,15 +217,5 @@ public class event_detail extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
-
-
     }
 }
