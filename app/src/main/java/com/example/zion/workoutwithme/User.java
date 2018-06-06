@@ -9,6 +9,7 @@ public class User {
     private String Email;
     private String Major;
     private String Interests;
+    private String ProfilePic;
 
 
     public User() {
@@ -85,4 +86,8 @@ public class User {
     public void setInterests(String interests) {
         this.Interests = interests;
     }
+
+    public String getProfilePic() { return ProfilePic; }
+
+    public void setProfilePic(String profilePic) { this.ProfilePic = profilePic; }
 }

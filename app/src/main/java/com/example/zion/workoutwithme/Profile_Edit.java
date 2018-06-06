@@ -29,6 +29,8 @@ import android.widget.Toast;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,6 +68,7 @@ public class Profile_Edit extends AppCompatActivity {
     final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
+    String profilePicFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,8 @@ public class Profile_Edit extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             filePath = data.getData();
             Bitmap bitmap = null;
+
+
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
                 profilePic.setImageBitmap(bitmap);
@@ -138,39 +143,6 @@ public class Profile_Edit extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST); }
         });
 
-        // UPLOAD TO DATABASE STORAGE
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(filePath != null){
-                    final ProgressDialog progressDialog = new ProgressDialog(Profile_Edit.this);
-                    progressDialog.setTitle("Uploading...");
-                    progressDialog.show();
-
-                    StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Profile_Edit.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Profile_Edit.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-                }
-            }
-        });
-
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
@@ -178,6 +150,42 @@ public class Profile_Edit extends AppCompatActivity {
                     if (dataSnapshot.getValue() != null) {
                         try {
                             currentUser = dataSnapshot.getValue(User.class);
+
+                            // UPLOAD TO DATABASE STORAGE
+                            btnUpload.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(filePath != null){
+                                        final ProgressDialog progressDialog = new ProgressDialog(Profile_Edit.this);
+                                        progressDialog.setTitle("Uploading...");
+                                        progressDialog.show();
+
+                                        profilePicFile = UUID.randomUUID().toString();
+                                        currentUser.setProfilePic(profilePicFile);
+
+                                        StorageReference ref = storageReference.child("images/"+ profilePicFile);
+                                        ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(Profile_Edit.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(Profile_Edit.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                                double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                                                progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                                            }
+                                        });
+                                    }
+                                }
+                            });
 
                             // Set EditText's to current profile info if it exists
                             if(currentUser.getName() != null){
@@ -204,6 +212,27 @@ public class Profile_Edit extends AppCompatActivity {
 
                             if(currentUser.getBio() != null) {
                                 bioText.setText(currentUser.getBio());
+                            }
+
+                            if(currentUser.getProfilePic() != null) {
+                                storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        // Got the download URL
+
+                                        Glide
+                                                .with(Profile_Edit.this)
+                                                .load(uri)
+                                                .asBitmap()
+                                                .into(profilePic);
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle any errors
+                                    }
+                                });
                             }
 
                             // Add interests one by one
