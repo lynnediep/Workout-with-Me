@@ -97,8 +97,8 @@
     <Button
         android:id="@+id/save"
         android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="15dp"
@@ -115,33 +115,33 @@
 
     <Button
         android:id="@+id/addInterests_Button"
-        android:layout_width="120dp"
+        android:layout_width="88dp"
         android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="15dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="392dp"
         android:background="@drawable/roundbutton"
         android:text="Add Interest"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/Interests_editText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Refresh_Button"
-        android:layout_width="120dp"
+        android:layout_width="88dp"
         android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="15dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/roundbutton"
         android:text="Refresh"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/Interests_editText"
         app:layout_constraintTop_toBottomOf="@+id/addInterests_Button" />
 
@@ -160,21 +160,22 @@
 
     <Button
         android:id="@+id/buttonUpload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="88dp"
+        android:layout_height="39dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="15dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundbutton"
         android:text="Upload"
         app:layout_constraintBottom_toTopOf="@+id/addInterests_Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toEndOf="@+id/Profile_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.574" />
+        app:layout_constraintVertical_bias="0.415" />
 
 
 </android.support.constraint.ConstraintLayout>
