@@ -67,7 +67,6 @@ public class event_detail extends AppCompatActivity {
         final String cruzID = extras.getString("CURRENT_USER");
         String eventHost = extras.getString("EVENT_HOST");
         users = extras.getStringArrayList("EVENT_USERS");
-        host = extras.getString("CURRENT_USER");
 
         String count = extras.getString("EVENT_COUNT");
         String eventCount = "event" + count;
@@ -91,8 +90,7 @@ public class event_detail extends AppCompatActivity {
        // });
 
         FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
-        // TO BE UPDATED TO HOST
-        final DatabaseReference userRef = anuthaDatabase.getReference("User").child("chvtruon");
+        final DatabaseReference userRef = anuthaDatabase.getReference("User").child(eventHost);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
