@@ -3,9 +3,9 @@
     package="com.example.zion.workoutwithme">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -43,11 +43,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".event_detail" />
-        <activity android:name=".auth_user"></activity>
+        <activity android:name=".auth_user" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".comment_section"></activity>
     </application>
 
 </manifest>

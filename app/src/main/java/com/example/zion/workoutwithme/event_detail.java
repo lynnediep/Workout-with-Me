@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class event_detail extends AppCompatActivity {
 
-    TextView title, description, date, time, location;
+    TextView title, description, date, time, location, comments;
     ImageView hostPicture;
     Button joinButton, leaveButton, btnCancel;
     ArrayList<String> users;
@@ -215,5 +215,15 @@ public class event_detail extends AppCompatActivity {
 
             }
         });
+
+        comments = findViewById(R.id.viewComments);
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent commentSection = new Intent(event_detail.this, comment_section.class);
+            }
+        });
+
     }
+
 }
