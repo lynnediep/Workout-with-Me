@@ -31,6 +31,7 @@ public class event_detail extends AppCompatActivity {
     ImageView hostPicture;
     Button joinButton, leaveButton, btnCancel;
     ArrayList<String> users;
+    ArrayList<Comment> commentList;
     User currentUser;
     FirebaseDatabase database;
     DatabaseReference event;
@@ -53,6 +54,7 @@ public class event_detail extends AppCompatActivity {
         time = findViewById(R.id.eventTime);
         location = findViewById(R.id.eventLocation);
         hostPicture = findViewById(R.id.hostPicture);
+        comments = findViewById(R.id.viewComments);
 
         Intent info = getIntent();
         Bundle extras = info.getExtras();
@@ -69,7 +71,7 @@ public class event_detail extends AppCompatActivity {
         users = extras.getStringArrayList("EVENT_USERS");
 
         String count = extras.getString("EVENT_COUNT");
-        String eventCount = "event" + count;
+        final String eventCount = "event" + count;
 
         database = FirebaseDatabase.getInstance();
         event = database.getReference("Event/" + eventCount);
@@ -79,6 +81,23 @@ public class event_detail extends AppCompatActivity {
         date.setText(event_date);
         time.setText(event_time);
         location.setText(event_location);
+
+        event.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int commentSize = ((int) dataSnapshot.child("comments").getChildrenCount()) - 1;
+                if(commentSize > 0) {
+                    comments.setText("Post/View Comments(" + Integer.toString(commentSize) + ")");
+                } else {
+                    comments.setText("Post/View Comments(0)");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
        // btnCancel = (Button)findViewById(R.id.btncancel);
        // btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -216,11 +235,12 @@ public class event_detail extends AppCompatActivity {
             }
         });
 
-        comments = findViewById(R.id.viewComments);
         comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent commentSection = new Intent(event_detail.this, comment_section.class);
+                commentSection.putExtra("EVENT_COUNT", eventCount);
+                startActivity(commentSection);
             }
         });
 

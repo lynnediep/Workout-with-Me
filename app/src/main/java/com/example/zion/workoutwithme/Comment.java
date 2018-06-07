@@ -1,8 +1,10 @@
 package com.example.zion.workoutwithme;
 
-public class Comment {
+import android.os.Parcelable;
 
-    public String Message, Time, Date;
+public class Comment{
+
+    private String Message, Time, Date;
 
     public Comment(){
     }
@@ -36,4 +38,5 @@ public class Comment {
     public void setDate(String date) {
         Date = date;
     }
+
 }

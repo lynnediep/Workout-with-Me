@@ -15,6 +15,7 @@ public class Event {
     private String Location;
     private String Host;
     private ArrayList<String> Users = new ArrayList<String>();
+    private ArrayList<Comment> Comments = new ArrayList<Comment>();
     private int User_Count;
     private int Max_Count;
     private String Count;
@@ -22,15 +23,15 @@ public class Event {
     public Event() {
     }
 
-    public String getCount() {
-        return Count;
+    public ArrayList<Comment> getComments() {
+        return Comments;
     }
 
-    public void setCount(String count) {
-        Count = count;
+    public void setComments(ArrayList<Comment> comments) {
+        Comments = comments;
     }
 
-    public Event(String title, String description, String time, String date, String location, String host, int maxCount, String count) {
+    public Event(String title, String description, String time, String date, String location, String host, int maxCount, String count, Comment comment) {
         Title = title;
         Description = description;
         Time = time;
@@ -41,7 +42,15 @@ public class Event {
         User_Count = 1;
         Max_Count = maxCount;
         Count = count;
+        Comments.add(comment);
+    }
 
+    public String getCount() {
+        return Count;
+    }
+
+    public void setCount(String count) {
+        Count = count;
     }
 
     public String getTitle() {

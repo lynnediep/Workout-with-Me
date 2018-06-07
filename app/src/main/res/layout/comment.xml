@@ -9,28 +9,30 @@
 
     <TextView
         android:id="@+id/time"
-        android:layout_width="74dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="12dp"
         android:text="TextView" />
 
     <ImageView
         android:id="@+id/bubble"
-        android:layout_width="285dp"
+        android:layout_width="312dp"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
         android:scaleType="fitXY"
-        app:srcCompat="@mipmap/message_bubble" />
+        app:srcCompat="@drawable/message_bubble" />
 
     <TextView
         android:id="@+id/comment"
-        android:layout_width="187dp"
-        android:layout_height="32dp"
+        android:layout_width="286dp"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="11dp"
         android:text="TextView"
         android:textSize="12dp" />
 </RelativeLayout>

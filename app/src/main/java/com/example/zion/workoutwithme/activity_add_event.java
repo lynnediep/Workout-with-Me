@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static java.util.logging.Logger.global;
 
@@ -166,7 +167,8 @@ public class activity_add_event extends AppCompatActivity {
                                         etLocation.getText().toString(),
                                         cruzID,
                                         Integer.parseInt(etMax.getText().toString()),
-                                        count
+                                        count,
+                                        new Comment("comment", "00:00", "0/0/0000")
                                 );
 
                                 eventCount.child("count").setValue(Integer.toString(Integer.parseInt(count) + 1));

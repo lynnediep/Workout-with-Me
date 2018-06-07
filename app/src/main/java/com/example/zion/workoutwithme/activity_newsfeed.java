@@ -115,7 +115,6 @@ public class activity_newsfeed extends AppCompatActivity {
                 extras.putInt("EVENT_USER_COUNT", clickedEvent.getUser_Count());
                 extras.putStringArrayList("EVENT_USERS", clickedEvent.getUsers());
                 extras.putString("EVENT_COUNT", clickedEvent.getCount());
-
                 details.putExtras(extras);
 
                 startActivity(details);
