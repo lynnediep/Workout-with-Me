@@ -53,7 +53,7 @@ public class activity_newsfeed extends AppCompatActivity {
         if(cruzID == "" || cruzID == null){
             cruzID = userInfo.getStringExtra(Profile_Edit.CURRENT_USER_ID);
             if(cruzID == "" || cruzID == null) {
-                cruzID = userInfo.getStringExtra(event_detail.CURRENT_USER_ID);
+                cruzID = userInfo.getStringExtra("CURRENT_USER_ID");
             }
         }
 

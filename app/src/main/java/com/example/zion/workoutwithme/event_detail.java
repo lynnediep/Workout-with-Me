@@ -34,13 +34,13 @@ public class event_detail extends AppCompatActivity {
     ArrayList<Comment> commentList;
     User currentUser;
     FirebaseDatabase database;
-    DatabaseReference event;
+    DatabaseReference event, eventDelete;
     FirebaseStorage storage;
     StorageReference storageReference;
     private static final String TAG = "";
     String host;
     public static String HOST_ID = "";
-    public static String CURRENT_USER_ID = "";
+    String CURRENT_USER_ID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,7 @@ public class event_detail extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         event = database.getReference("Event/" + eventCount);
+        eventDelete = database.getReference("Event/");
 
         title.setText(event_title);
         description.setText(event_desc);
@@ -182,7 +183,7 @@ public class event_detail extends AppCompatActivity {
                             Toast.makeText(event_detail.this, "Successfully joined event", Toast.LENGTH_SHORT).show();
                             joinButton.setText("JOINED");
                             Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
-                            intent.putExtra(CURRENT_USER_ID, cruzID);
+                            intent.putExtra("CURRENT_USER_ID", cruzID);
                             startActivity(intent);
 
                         }
@@ -200,11 +201,25 @@ public class event_detail extends AppCompatActivity {
         });
 
         leaveButton = findViewById(R.id.leaveActivity);
+
+        if(eventHost.matches(cruzID)) {
+            leaveButton.setText("Delete Event");
+        }
+
         leaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(joinButton.getText().toString().matches("JOINED")) {
+                if(leaveButton.getText().toString().matches("Delete Event")) {
+                    eventDelete.child(eventCount).removeValue();
+                    Toast.makeText(event_detail.this, "Deleted Event", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
+                    intent.putExtra("CURRENT_USER_ID", cruzID);
+                    startActivity(intent);
+
+                }
+
+                else if(joinButton.getText().toString().matches("JOINED")) {
 
                     event.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -215,7 +230,7 @@ public class event_detail extends AppCompatActivity {
                             event.child("user_Count").setValue(users.size());
                             Toast.makeText(event_detail.this, "Successfully left event", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(event_detail.this, activity_newsfeed.class);
-                            intent.putExtra(CURRENT_USER_ID, cruzID);
+                            intent.putExtra("CURRENT_USER_ID", cruzID);
                             startActivity(intent);
 
                         }

@@ -194,6 +194,7 @@ public class activity_add_event extends AppCompatActivity {
                 });
 
                 Intent intent = new Intent(activity_add_event.this, activity_newsfeed.class);
+                intent.putExtra("CURRENT_USER_ID", cruzID);
                 startActivity(intent);
             }
         });
