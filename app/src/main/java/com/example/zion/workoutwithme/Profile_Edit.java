@@ -381,8 +381,5 @@ public class Profile_Edit extends AppCompatActivity {
         }
         return true;
     }
-
     //***************************************************************************************
-
-
 }
