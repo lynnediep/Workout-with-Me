@@ -168,7 +168,7 @@ public class activity_add_event extends AppCompatActivity {
                                         cruzID,
                                         Integer.parseInt(etMax.getText().toString()),
                                         count,
-                                        new Comment("comment", "00:00", "0/0/0000")
+                                        new Comment("comment", "00:00", "0/0/0000", "default")
                                 );
 
                                 eventCount.child("count").setValue(Integer.toString(Integer.parseInt(count) + 1));

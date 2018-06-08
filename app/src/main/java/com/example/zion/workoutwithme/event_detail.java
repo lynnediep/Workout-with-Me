@@ -240,6 +240,7 @@ public class event_detail extends AppCompatActivity {
             public void onClick(View view) {
                 Intent commentSection = new Intent(event_detail.this, comment_section.class);
                 commentSection.putExtra("EVENT_COUNT", eventCount);
+                commentSection.putExtra("CURRENT_USER", cruzID);
                 startActivity(commentSection);
             }
         });

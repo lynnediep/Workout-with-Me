@@ -4,15 +4,25 @@ import android.os.Parcelable;
 
 public class Comment{
 
-    private String Message, Time, Date;
+    private String Message, Time, Date, Name;
 
     public Comment(){
     }
 
-    public Comment(String comment, String time, String date){
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public Comment(String comment, String time, String date, String host){
         Message = comment;
         Time = time;
         Date = date;
+        Name = host;
+
     }
 
     public String getMessage() {
