@@ -244,6 +244,13 @@ public class event_detail extends AppCompatActivity {
             }
         });
 
+        hostPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(event_detail.this, display_profile.class);
+                startActivity(i);
+            }
+        });
     }
 
 }
