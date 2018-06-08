@@ -39,7 +39,7 @@ public class event_detail extends AppCompatActivity {
     StorageReference storageReference;
     private static final String TAG = "";
     String host;
-
+    public static String HOST_ID = "";
     public static String CURRENT_USER_ID = "";
 
     @Override
@@ -67,7 +67,7 @@ public class event_detail extends AppCompatActivity {
         int event_max_users = extras.getInt("EVENT_MAX_USERS");
         int event_user_count = extras.getInt("EVENT_USER_COUNT");
         final String cruzID = extras.getString("CURRENT_USER");
-        String eventHost = extras.getString("EVENT_HOST");
+        final String eventHost = extras.getString("EVENT_HOST");
         users = extras.getStringArrayList("EVENT_USERS");
 
         String count = extras.getString("EVENT_COUNT");
@@ -248,6 +248,7 @@ public class event_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(event_detail.this, display_profile.class);
+                i.putExtra(HOST_ID, eventHost);
                 startActivity(i);
             }
         });

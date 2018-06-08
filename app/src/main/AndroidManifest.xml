@@ -34,6 +34,9 @@
             android:name=".activity_add_event"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".display_profile"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".splash"
             android:screenOrientation="portrait">
             <intent-filter>
