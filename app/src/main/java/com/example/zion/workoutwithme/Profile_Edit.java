@@ -69,6 +69,7 @@ public class Profile_Edit extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     String profilePicFile;
+    ArrayList<String> currentInterests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +203,7 @@ public class Profile_Edit extends AppCompatActivity {
 
                             if(currentUser.getInterests() != null) {
                                 String[] interests = currentUser.getInterests().toString().split(" ");
-                                ArrayList<String> currentInterests = new ArrayList<String>
+                                currentInterests = new ArrayList<String>
                                         (Arrays.asList(interests));
                                 adapter = new ArrayAdapter<String>
                                         (Profile_Edit.this, android.R.layout.simple_list_item_1,
@@ -318,6 +319,7 @@ public class Profile_Edit extends AppCompatActivity {
                                                 Toast.LENGTH_LONG).show();
                                     }
                                     else {
+                                        interestsArray.addAll(currentInterests);
                                         StringBuilder sb = new StringBuilder();
                                         for(String s : interestsArray){
                                             sb.append(s);
