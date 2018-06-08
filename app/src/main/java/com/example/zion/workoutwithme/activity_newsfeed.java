@@ -112,7 +112,7 @@ public class activity_newsfeed extends AppCompatActivity {
 
                 FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
                 // NEED TO UPDATE TO CURRENT HOST
-                final DatabaseReference userRef = anuthaDatabase.getReference("User").child(model.getHost());
+                DatabaseReference userRef = anuthaDatabase.getReference("User").child(model.getHost());
 
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
