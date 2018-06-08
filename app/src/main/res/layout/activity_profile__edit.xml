@@ -110,8 +110,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toEndOf="@+id/Interests_ListView"
-        app:layout_constraintTop_toBottomOf="@+id/Refresh_Button"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintTop_toBottomOf="@+id/addInterests_Button"
+        app:layout_constraintVertical_bias="0.986" />
 
     <Button
         android:id="@+id/addInterests_Button"
@@ -128,22 +128,6 @@
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/Interests_editText"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/Refresh_Button"
-        android:layout_width="88dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/roundbutton"
-        android:text="Refresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@+id/Interests_editText"
-        app:layout_constraintTop_toBottomOf="@+id/addInterests_Button" />
 
     <ListView
         android:id="@+id/Interests_ListView"

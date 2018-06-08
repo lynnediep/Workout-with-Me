@@ -88,7 +88,6 @@ public class Profile_Edit extends AppCompatActivity {
         bioText = (EditText) findViewById(R.id.Bio_editText);
         addInterestsBtn = (Button) findViewById(R.id.addInterests_Button);
         interestsListView = (ListView) findViewById(R.id.Interests_ListView);
-        refreshInterests = (Button) findViewById(R.id.Refresh_Button);
         profilePic = (ImageView) findViewById(R.id.Profile_img);
         btnUpload = (Button) findViewById(R.id.buttonUpload);
     }
@@ -255,18 +254,11 @@ public class Profile_Edit extends AppCompatActivity {
                                         adapter = new ArrayAdapter<String>
                                                 (Profile_Edit.this, android.R.layout.simple_list_item_1,
                                                         interestsArray);
+                                        adapter.notifyDataSetChanged();
                                         interestsListView.setAdapter(adapter);
                                         interestText.setText("");
+                                        adapter.notifyDataSetChanged();
                                     }
-                                }
-                            });
-
-                            // Refresh button, maybe remove
-                            refreshInterests.setOnClickListener(new View.OnClickListener(){
-                                @Override
-                                public void onClick(View view) {
-                                    adapter.notifyDataSetChanged();
-                                    interestsListView.setAdapter(adapter);
                                 }
                             });
 
