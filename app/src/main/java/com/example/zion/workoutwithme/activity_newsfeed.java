@@ -84,15 +84,13 @@ public class activity_newsfeed extends AppCompatActivity {
             }
         });
 
-        Query query = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("Event");
+        Query query = event_table.orderByChild("date");
 
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        adapter = new FirebaseListAdapter<Event>(this, Event.class, R.layout.event, event_table) {
+        adapter = new FirebaseListAdapter<Event>(this, Event.class, R.layout.event, query) {
             @Override
             protected void populateView(View v, Event model, int position) {
                 TextView eventName = v.findViewById(R.id.event_name);

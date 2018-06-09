@@ -90,7 +90,6 @@ public class activity_add_event extends AppCompatActivity {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-
             }
         });
 
@@ -98,9 +97,16 @@ public class activity_add_event extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateset: mm/dd/yyyy: " + month + "/" + day + "/" + year);
+                String date = "";
+                if(day < 10 && month < 10) {
+                    date = "0" + month + "/0" + day + "/" + year;
+                } else if(day < 10){
+                    date = month + "/0" + day + "/" + year;
+                } else if(month < 10) {
+                    date = "0" + month + "/" + day + "/" + year;
+                }
 
-                String date = month + "/" + day + "/" + year;
+                Log.d(TAG, "onDateset: mm/dd/yyyy: " + month + "/" + day + "/" + year);
                 mEnter_Date.setText(date);
             }
         };
@@ -120,6 +126,11 @@ public class activity_add_event extends AppCompatActivity {
                             amPm = "PM";
                         } else {
                             amPm = "AM";
+                        }
+                        if(hourofDay > 12 && hourofDay < 24 && amPm.matches("PM")) {
+                            hourofDay -= 12;
+                        } else if(hourofDay == 0) {
+                            hourofDay += 12;
                         }
                         mEnter_Time.setText(String.format("%02d:%02d", hourofDay, minutes) + amPm);
                     }

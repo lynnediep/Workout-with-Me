@@ -71,6 +71,7 @@ public class comment_section extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView name = view.findViewById(R.id.comment_host_name);
                 String user = name.getText().toString();
+                final int x = i;
                 if(user.matches(cruzID)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(comment_section.this, R.style.AlertBox);
                     builder.setTitle("Delete Comment")
@@ -78,9 +79,26 @@ public class comment_section extends AppCompatActivity {
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    comments.child(Integer.toString(x)).removeValue();
 
-                                    comments.child(Integer.toString(i+2)).removeValue();
-
+                                    comments.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            commentList = new ArrayList<Comment>();
+                                            for(DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                                String message = (String) childSnapshot.child("message").getValue();
+                                                String time = (String) childSnapshot.child("time").getValue();
+                                                String date = (String) childSnapshot.child("date").getValue();
+                                                String user = (String) childSnapshot.child("name").getValue();
+                                                commentList.add(new Comment(message, time, date, user));
+                                            }
+                                            comments.setValue(commentList);
+                                        }
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                        }
+                                    });
+                                    
                                     Toast.makeText(comment_section.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
                                 }
                             })
