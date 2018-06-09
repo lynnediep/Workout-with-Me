@@ -10,7 +10,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -35,14 +39,14 @@
 
         </ListView>
 
-        <Button
+        <ImageButton
             android:id="@+id/commentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="0dp"
-            android:layout_marginEnd="17dp"
+            android:layout_marginEnd="20dp"
+            android:src="@android:drawable/ic_menu_send"
             android:text="Comment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +61,13 @@
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
+            android:backgroundTint="@color/colorPrimary"
             android:ems="10"
             android:hint="Comment Here"
             android:inputType="textPersonName"
             android:singleLine="false"
-            android:textSize="20dp"
-            android:backgroundTint="@color/colorPrimary"
             android:textCursorDrawable="@color/colorPrimary"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/commentButton"
             app:layout_constraintStart_toStartOf="parent"

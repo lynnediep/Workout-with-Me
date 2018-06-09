@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".display_profile">
+    tools:context=".display_profile"
+    android:background="@color/grayback">
 
     <ImageView
         android:id="@+id/profile_img"
@@ -107,6 +108,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundtext"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toEndOf="@+id/namelabel"
         app:layout_constraintTop_toBottomOf="@+id/name_tv" />
@@ -118,6 +120,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundtext"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toEndOf="@+id/namelabel"
         app:layout_constraintTop_toBottomOf="@+id/major_tv" />
@@ -129,6 +132,7 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundtext"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toEndOf="@+id/namelabel"
         app:layout_constraintTop_toBottomOf="@+id/year_tv" />
@@ -140,17 +144,19 @@
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundtext"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintStart_toEndOf="@+id/namelabel"
         app:layout_constraintTop_toBottomOf="@+id/profile_img" />
 
     <ListView
         android:id="@+id/interests_lv"
-        android:layout_width="268dp"
+        android:layout_width="207dp"
         android:layout_height="117dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundtext"
         app:layout_constraintStart_toEndOf="@+id/interestslabel"
         app:layout_constraintTop_toBottomOf="@+id/bio_tv" />
 </android.support.constraint.ConstraintLayout>

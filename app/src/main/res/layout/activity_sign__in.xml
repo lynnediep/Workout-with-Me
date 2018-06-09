@@ -11,28 +11,28 @@
         android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="168dp"
         android:layout_marginEnd="148dp"
         android:layout_marginLeft="148dp"
         android:layout_marginRight="148dp"
         android:layout_marginStart="148dp"
         android:background="@drawable/roundbutton"
-        android:text="Sign In"
+        android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout6"
-        android:layout_width="262dp"
+        android:layout_width="300dp"
         android:layout_height="67dp"
         android:layout_marginEnd="61dp"
         android:layout_marginLeft="61dp"
         android:layout_marginRight="61dp"
         android:layout_marginStart="61dp"
         android:layout_marginTop="160dp"
+        android:background="@drawable/roundtext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +41,6 @@
             style="@style/EditText.Login"
             android:layout_width="262dp"
             android:layout_height="67dp"
-            android:hint="UCSC Email"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
@@ -50,39 +49,64 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="261dp"
+        android:id="@+id/textInputLayout7"
+        android:layout_width="300dp"
         android:layout_height="68dp"
         android:layout_marginEnd="60dp"
         android:layout_marginLeft="63dp"
         android:layout_marginRight="60dp"
         android:layout_marginStart="63dp"
         android:layout_marginTop="34dp"
+        android:background="@drawable/roundtext"
         app:layout_constraintBottom_toTopOf="@+id/signInButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
+        app:layout_constraintVertical_bias="0.0">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/password"
+            style="@style/EditText.Login"
             android:layout_width="261dp"
             android:layout_height="68dp"
-            android:hint="Password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:theme="@style/EditText.Login"
-            style="@style/EditText.Login" />
+            android:theme="@style/EditText.Login" />
     </android.support.design.widget.TextInputLayout>
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="90dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="101dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/logo2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginStart="42dp"
+        android:text="UCSC Email:"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout6"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginStart="42dp"
+        android:text="Password:"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout7"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

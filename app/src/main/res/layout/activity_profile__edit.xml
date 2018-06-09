@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:padding="20dp" />
+        android:padding="10dp" />
 
     <ImageView
         android:id="@+id/Profile_img"
-        android:layout_width="132dp"
-        android:layout_height="131dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="136dp"
+        android:layout_height="125dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,11 +31,12 @@
         android:layout_height="39dp"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
         android:maxLength="20"
+        android:background="@drawable/roundtext"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Profile_img" />
 
@@ -48,6 +49,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Biography"
+        android:background="@drawable/roundtext"
         android:inputType="textMultiLine"
         android:maxLength="150"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +64,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Yr"
+        android:background="@drawable/roundtext"
         android:inputType="text"
         android:maxLength="2"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +79,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Major"
+        android:background="@drawable/roundtext"
         android:inputType="text"
         android:maxLength="20"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +93,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:ems="10"
+        android:background="@drawable/roundtext"
         android:hint="Interests"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +120,8 @@
 
     <Button
         android:id="@+id/addInterests_Button"
-        android:layout_width="88dp"
-        android:layout_height="39dp"
+        android:layout_width="87dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="15dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="15dp"
@@ -164,9 +169,12 @@
     <ScrollView
         android:layout_width="1dp"
         android:layout_height="1dp"
+        android:layout_marginBottom="455dp"
+        android:layout_marginEnd="328dp"
+        android:layout_marginRight="328dp"
         android:scrollbarStyle="outsideOverlay"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="111dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
     </ScrollView>
 

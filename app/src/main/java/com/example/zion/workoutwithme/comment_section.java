@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class comment_section extends AppCompatActivity {
     DatabaseReference comments;
     ListView listView;
     ArrayList<Comment> commentList;
-    Button commentButton;
+    ImageButton commentButton;
     EditText userComment;
     Date date = new Date();
     Calendar calendar = Calendar.getInstance();
@@ -64,7 +65,7 @@ public class comment_section extends AppCompatActivity {
 
         userComment = findViewById(R.id.userComment);
 
-        commentButton = findViewById(R.id.commentButton);
+        ImageButton commentButton = (ImageButton) findViewById(R.id.commentButton);
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
