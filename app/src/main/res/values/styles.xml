@@ -16,4 +16,13 @@
         <item name="colorControlActivated">@color/ucsc_Blue</item>
     </style>
 
+    <style name="AlertBox" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <!-- Used for the background -->
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 </resources>

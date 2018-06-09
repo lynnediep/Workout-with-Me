@@ -42,7 +42,7 @@ public class display_profile extends AppCompatActivity {
         setContentView(R.layout.activity_display_profile);
 
         Intent info = getIntent();
-        hostID = info.getStringExtra(event_detail.HOST_ID);
+        hostID = info.getStringExtra("HOST_ID");
 
         name = findViewById(R.id.name_tv);
         year = findViewById(R.id.year_tv);

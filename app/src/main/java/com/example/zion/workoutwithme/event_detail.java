@@ -264,7 +264,7 @@ public class event_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(event_detail.this, display_profile.class);
-                i.putExtra(HOST_ID, eventHost);
+                i.putExtra("HOST_ID", eventHost);
                 startActivity(i);
             }
         });
