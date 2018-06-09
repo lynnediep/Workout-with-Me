@@ -1,13 +1,18 @@
 package com.example.zion.workoutwithme;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +30,7 @@ import java.util.Date;
 public class comment_section extends AppCompatActivity {
 
     FirebaseDatabase database;
-    DatabaseReference comments;
+    DatabaseReference comments, users;
     ListView listView;
     ArrayList<Comment> commentList;
     Button commentButton;
@@ -61,6 +66,39 @@ public class comment_section extends AppCompatActivity {
         };
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView name = view.findViewById(R.id.comment_host_name);
+                String user = name.getText().toString();
+                if(user.matches(cruzID)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(comment_section.this, R.style.AlertBox);
+                    builder.setTitle("Delete Comment")
+                            .setMessage("Would you like to delete your comment?")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    comments.child(Integer.toString(i+2)).removeValue();
+
+                                    Toast.makeText(comment_section.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } else {
+                    Intent intent = new Intent(comment_section.this, display_profile.class);
+                    intent.putExtra("HOST_ID", user);
+                    startActivity(intent);
+                }
+            }
+        });
 
         userComment = findViewById(R.id.userComment);
 
@@ -108,6 +146,7 @@ public class comment_section extends AppCompatActivity {
 
             }
         });
+
 
     }
 }
