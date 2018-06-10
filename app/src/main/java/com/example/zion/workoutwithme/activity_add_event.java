@@ -141,6 +141,7 @@ public class activity_add_event extends AppCompatActivity {
             }
         });
 
+
       //  btnCancel = (Button)findViewById(R.id.btncancel);
       //  btnCancel.setOnClickListener(new View.OnClickListener() {
       //      @Override
@@ -168,6 +169,15 @@ public class activity_add_event extends AppCompatActivity {
                         eventCount.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Make a timestamp (for deletion)
+                                String time = etTime.getText().toString();
+                                String hour = time.substring(0, 2);
+                                String minute = time.substring(3,5);
+                                String date = etDate.getText().toString();
+                                String month = date.substring(0,2);
+                                String day = date.substring(3,5);
+                                String timestamp = month + day + "." + hour + minute;
+
                                 count = dataSnapshot.child("count").getValue(String.class);
 
                                 final Event event = new Event(
@@ -179,7 +189,8 @@ public class activity_add_event extends AppCompatActivity {
                                         cruzID,
                                         Integer.parseInt(etMax.getText().toString()),
                                         count,
-                                        new Comment("comment", "00:00", "0/0/0000", "default")
+                                        new Comment("comment", "00:00", "0/0/0000", "default"),
+                                        timestamp
                                 );
 
                                 eventCount.child("count").setValue(Integer.toString(Integer.parseInt(count) + 1));

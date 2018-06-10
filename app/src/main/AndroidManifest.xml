@@ -54,7 +54,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".comment_section"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

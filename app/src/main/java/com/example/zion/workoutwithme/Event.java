@@ -2,6 +2,8 @@ package com.example.zion.workoutwithme;
 
 import android.provider.Settings;
 
+import com.google.firebase.database.ServerValue;
+
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class Event {
     private int User_Count;
     private int Max_Count;
     private String Count;
+    private String Timestamp;
 
     public Event() {
     }
@@ -31,7 +34,16 @@ public class Event {
         Comments = comments;
     }
 
-    public Event(String title, String description, String time, String date, String location, String host, int maxCount, String count, Comment comment) {
+    public String getTimestamp() {
+        return Timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        Timestamp = timestamp;
+    }
+
+    public Event(String title, String description, String time, String date, String location,
+                 String host, int maxCount, String count, Comment comment, String timestamp) {
         Title = title;
         Description = description;
         Time = time;
@@ -43,6 +55,7 @@ public class Event {
         Max_Count = maxCount;
         Count = count;
         Comments.add(comment);
+        Timestamp = timestamp;
     }
 
     public String getCount() {
