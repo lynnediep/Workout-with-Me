@@ -207,11 +207,20 @@ public class activity_newsfeed extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
-                if(currentHour == 0) {
-                    String cH = "0" + Integer.toString(currentHour);
+                String cH;
+                if(currentHour < 10) {
+                    cH = "0" + Integer.toString(currentHour);
+                } else {
+                    cH = Integer.toString(currentHour);
+                }
+                String cM;
+                if(currentMinute < 10) {
+                    cM = "0" + Integer.toString(currentMinute);
+                } else {
+                    cM = Integer.toString(currentMinute);
                 }
 
-                String secondPart = Integer.toString(currentHour) + Integer.toString(currentMinute);
+                String secondPart = cH + cM;
 
                 // Find the first part of the current time
                 int month = calendar.get(Calendar.MONTH) + 1;
@@ -242,8 +251,6 @@ public class activity_newsfeed extends AppCompatActivity {
                     }
 
                 }
-
-
 
             }
 
