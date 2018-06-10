@@ -207,11 +207,7 @@ public class activity_newsfeed extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
-                if(currentHour > 12 && currentHour < 24) {
-                    currentHour -= 12;
-                } else if(currentHour == 0) {
-                    currentHour += 12;
-                }
+
                 String secondPart = Integer.toString(currentHour) + Integer.toString(currentMinute);
 
                 // Find the first part of the current time
@@ -241,11 +237,12 @@ public class activity_newsfeed extends AppCompatActivity {
                     if(check >= .02) {
 
                     } else {
-                        Event event = (Event) eventSnapshot.getValue();
+                        Event event = (Event) eventSnapshot.getValue(Event.class);
                         eventList.add(event);
                     }
-                    event_table.setValue(eventList);
+
                 }
+                event_table.setValue(eventList);
 
 
             }
