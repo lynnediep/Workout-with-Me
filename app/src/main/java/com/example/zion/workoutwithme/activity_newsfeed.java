@@ -84,7 +84,7 @@ public class activity_newsfeed extends AppCompatActivity {
             }
         });
 
-        Query query = event_table.orderByChild("date");
+        final Query query = event_table.orderByChild("date");
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -106,43 +106,54 @@ public class activity_newsfeed extends AppCompatActivity {
                 eventTime.setText(model.getTime());
                 eventLocation.setText(model.getLocation());
                 eventUsers.setText(Integer.toString(model.getUsers().size()) + " / " + Integer.toString(model.getMax_Count()));
-
-                FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
+                
                 final String theHost = adapter.getItem(position).getHost();
-                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost).child("profilePic");
 
-                userRef.addValueEventListener(new ValueEventListener() {
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(final DataSnapshot dataSnapshot) {
-                        try {
-                            if (dataSnapshot.getValue() != null) {
-                                String profilePicUUID = dataSnapshot.getValue(String.class);
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost).child("profilePic");
 
-                                storageReference.child("images/"+ theHost+"/"+profilePicUUID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        // Got the download URL
-                                        Glide
-                                                .with(activity_newsfeed.this)
-                                                .load(uri)
-                                                .asBitmap()
-                                                .into(eventHostProfilePic);
+                        userRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(final DataSnapshot dataSnapshot) {
+                                try {
+                                    if (dataSnapshot.getValue() != null) {
+                                        String profilePicUUID = dataSnapshot.getValue(String.class);
 
+                                        storageReference.child("images/"+ theHost+"/"+profilePicUUID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                // Got the download URL
+                                                Glide
+                                                        .with(activity_newsfeed.this)
+                                                        .load(uri)
+                                                        .asBitmap()
+                                                        .into(eventHostProfilePic);
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                // Handle any errors
+                                            }
+                                        });
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        // Handle any errors
+                                    else {
+                                        Log.e("TAG", "It's null.");
                                     }
-                                });
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                            else {
-                                Log.e("TAG", "It's null.");
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w(TAG, "onCancelled", databaseError.toException());
                             }
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        });
                     }
 
                     @Override
