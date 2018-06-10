@@ -69,7 +69,7 @@ public class activity_newsfeed extends AppCompatActivity {
 
         // User Database and Event Database loaded
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference current_user = database.getReference("User");
+        final DatabaseReference current_user = database.getReference("User");
         final DatabaseReference event_table = database.getReference("Event");
 
         changeActivityButton = (Button)findViewById(R.id.edit_profile);
@@ -207,6 +207,9 @@ public class activity_newsfeed extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
+                if(currentHour == 0) {
+                    String cH = "0" + Integer.toString(currentHour);
+                }
 
                 String secondPart = Integer.toString(currentHour) + Integer.toString(currentMinute);
 
@@ -230,19 +233,16 @@ public class activity_newsfeed extends AppCompatActivity {
                 // Check Delete is time + .02
                 String checkDeleteTime = firstPart + "." + secondPart;
 
-                eventList = new ArrayList<Event>();
                 for(DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                     String eventTimeStamp = (String) eventSnapshot.child("timestamp").getValue();
                     double check = Double.parseDouble(checkDeleteTime) - Double.parseDouble(eventTimeStamp);
                     if(check >= .02) {
-
-                    } else {
-                        Event event = (Event) eventSnapshot.getValue(Event.class);
-                        eventList.add(event);
+                        String key = eventSnapshot.getKey();
+                        event_table.child(key).removeValue();
                     }
 
                 }
-                event_table.setValue(eventList);
+
 
 
             }
