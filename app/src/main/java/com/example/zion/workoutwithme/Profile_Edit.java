@@ -215,7 +215,7 @@ public class Profile_Edit extends AppCompatActivity {
                             }
 
                             if(currentUser.getProfilePic() != null) {
-                                storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                storageReference.child("images/"+cruzID+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         // Got the download URL

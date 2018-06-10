@@ -86,7 +86,6 @@ public class activity_newsfeed extends AppCompatActivity {
 
         Query query = event_table.orderByChild("date");
 
-
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
@@ -99,8 +98,8 @@ public class activity_newsfeed extends AppCompatActivity {
                 TextView eventTime = v.findViewById(R.id.event_time);
                 TextView eventLocation = v.findViewById(R.id.event_location);
                 TextView eventUsers = v.findViewById(R.id.event_users);
-                final ImageView eventHostProfilePic = v.findViewWithTag(R.id.host_profile);
-                
+                final ImageView eventHostProfilePic = v.findViewById(R.id.host_profile);
+
                 eventName.setText(model.getTitle());
                 eventDescription.setText(model.getDescription());
                 eventDate.setText(model.getDate());
@@ -110,16 +109,16 @@ public class activity_newsfeed extends AppCompatActivity {
 
                 FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
                 final String theHost = adapter.getItem(position).getHost();
-                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost);
+                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost).child("profilePic");
 
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         try {
                             if (dataSnapshot.getValue() != null) {
-                                currentUser = dataSnapshot.getValue(User.class);
+                                String profilePicUUID = dataSnapshot.getValue(String.class);
 
-                                storageReference.child("images/"+ theHost+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                storageReference.child("images/"+ theHost+"/"+profilePicUUID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         // Got the download URL
