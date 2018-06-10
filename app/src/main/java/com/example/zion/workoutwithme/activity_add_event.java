@@ -6,7 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,11 +51,15 @@ public class activity_add_event extends AppCompatActivity {
         int currentMinute;
         String amPm;
 
+    int x;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
+        checkAutomaticTime();
 
         // Current User
         Intent userInfo = getIntent();
@@ -261,5 +268,37 @@ public class activity_add_event extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        checkAutomaticTime();
+    }
+
+    public void checkAutomaticTime() {
+        // Check if user has correct time
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+        } else {
+            x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+        }
+        if(x != 1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please turn on automatic time")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            while(x != 1) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                    x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+                                } else {
+                                    x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+                                }
+                            }
+                        }
+                    })
+                    .show();
+        }
+    }
 }

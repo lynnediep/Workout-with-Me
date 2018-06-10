@@ -3,6 +3,8 @@ package com.example.zion.workoutwithme;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,11 +40,14 @@ public class comment_section extends AppCompatActivity {
     EditText userComment;
     Date date = new Date();
     Calendar calendar = Calendar.getInstance();
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_section);
+
+        checkAutomaticTime();
 
         Intent extras = getIntent();
         String eventComments = extras.getStringExtra("EVENT_COUNT");
@@ -72,7 +77,7 @@ public class comment_section extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView name = view.findViewById(R.id.comment_host_name);
                 String user = name.getText().toString();
-                final int x = i;
+                final int y = i;
                 if(user.matches(cruzID)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(comment_section.this, R.style.AlertBox);
                     builder.setTitle("Delete Comment")
@@ -80,7 +85,7 @@ public class comment_section extends AppCompatActivity {
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    comments.child(Integer.toString(x)).removeValue();
+                                    comments.child(Integer.toString(y)).removeValue();
 
                                     comments.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -99,7 +104,7 @@ public class comment_section extends AppCompatActivity {
                                         public void onCancelled(DatabaseError databaseError) {
                                         }
                                     });
-                                    
+
                                     Toast.makeText(comment_section.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -167,5 +172,39 @@ public class comment_section extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkAutomaticTime();
+    }
+
+    public void checkAutomaticTime() {
+        // Check if user has correct time
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+        } else {
+            x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+        }
+        if(x != 1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please turn on automatic time")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            while(x != 1) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                    x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+                                } else {
+                                    x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+                                }
+                            }
+                        }
+                    })
+                    .show();
+        }
     }
 }

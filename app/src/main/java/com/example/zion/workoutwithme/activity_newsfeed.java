@@ -1,8 +1,12 @@
 package com.example.zion.workoutwithme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class activity_newsfeed extends AppCompatActivity {
 
     Button changeActivityButton;
@@ -40,12 +47,15 @@ public class activity_newsfeed extends AppCompatActivity {
     private static final String TAG = "";
     public static final String CURRENT_USER_ID = "";
     User currentUser;
-
+    int x;
+    ArrayList<Event> eventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newsfeed);
+
+        checkAutomaticTime();
 
         // Current User
         Intent userInfo = getIntent();
@@ -60,7 +70,7 @@ public class activity_newsfeed extends AppCompatActivity {
         // User Database and Event Database loaded
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference current_user = database.getReference("User");
-        DatabaseReference event_table = database.getReference("Event");
+        final DatabaseReference event_table = database.getReference("Event");
 
         changeActivityButton = (Button)findViewById(R.id.edit_profile);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -190,8 +200,97 @@ public class activity_newsfeed extends AppCompatActivity {
             }
         });
 
+        event_table.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get the current time to compare to timestamp
+                Calendar calendar = Calendar.getInstance();
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                int currentMinute = calendar.get(Calendar.MINUTE);
+                if(currentHour > 12 && currentHour < 24) {
+                    currentHour -= 12;
+                } else if(currentHour == 0) {
+                    currentHour += 12;
+                }
+                String secondPart = Integer.toString(currentHour) + Integer.toString(currentMinute);
+
+                // Find the first part of the current time
+                int month = calendar.get(Calendar.MONTH) + 1;
+                String m = "";
+                if(month < 10) {
+                    m = "0" + Integer.toString(month);
+                } else {
+                    m = Integer.toString(month);
+                }
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                String d = "";
+                if(day < 10) {
+                     d = "0" + Integer.toString(day);
+                } else {
+                    d = Integer.toString(day);
+                }
+                String firstPart = m + d;
+
+                // Check Delete is time + .02
+                String checkDeleteTime = firstPart + "." + secondPart;
+
+                eventList = new ArrayList<Event>();
+                for(DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                    String eventTimeStamp = (String) eventSnapshot.child("timestamp").getValue();
+                    double check = Double.parseDouble(checkDeleteTime) - Double.parseDouble(eventTimeStamp);
+                    if(check >= .02) {
+
+                    } else {
+                        Event event = (Event) eventSnapshot.getValue();
+                        eventList.add(event);
+                    }
+                    event_table.setValue(eventList);
+                }
 
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkAutomaticTime();
+    }
+
+    public void checkAutomaticTime() {
+        // Check if user has correct time
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+        } else {
+            x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+        }
+        if(x != 1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Please turn on automatic time")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            while(x != 1) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                    x = Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME, 0);
+                                } else {
+                                    x = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.AUTO_TIME, 0);
+                                }
+                            }
+                        }
+                    })
+                    .show();
+        }
     }
 
 
