@@ -197,7 +197,7 @@ public class activity_add_event extends AppCompatActivity {
                                         Integer.parseInt(etMax.getText().toString()),
                                         count,
                                         new Comment("Welcome to the comment section. Please be nice to others!",
-                                                "00:00", "0/0/0000", "Sammy Slug"),
+                                                "00:00", "0/0/0000", "sammyslug"),
                                         timestamp
                                 );
 
