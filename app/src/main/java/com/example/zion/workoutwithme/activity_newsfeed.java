@@ -99,8 +99,8 @@ public class activity_newsfeed extends AppCompatActivity {
                 TextView eventTime = v.findViewById(R.id.event_time);
                 TextView eventLocation = v.findViewById(R.id.event_location);
                 TextView eventUsers = v.findViewById(R.id.event_users);
-                final ImageView eventHostProfilePic = v.findViewById(R.id.host_profile);
-
+                final ImageView eventHostProfilePic = v.findViewWithTag(R.id.host_profile);
+                
                 eventName.setText(model.getTitle());
                 eventDescription.setText(model.getDescription());
                 eventDate.setText(model.getDate());
@@ -110,15 +110,16 @@ public class activity_newsfeed extends AppCompatActivity {
 
                 FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
                 final String theHost = adapter.getItem(position).getHost();
-                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost).child("profilePic");
+                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost);
 
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(final DataSnapshot dataSnapshot) {
                         try {
                             if (dataSnapshot.getValue() != null) {
-                                String profilePicUUID = dataSnapshot.getValue(String.class);
-                                storageReference.child("images/"+ theHost+"/"+profilePicUUID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                currentUser = dataSnapshot.getValue(User.class);
+
+                                storageReference.child("images/"+ theHost+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         // Got the download URL
