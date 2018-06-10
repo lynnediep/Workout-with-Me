@@ -122,7 +122,7 @@ public class event_detail extends AppCompatActivity {
                     if (dataSnapshot.getValue() != null) {
                         currentUser = dataSnapshot.getValue(User.class);
 
-                        storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        storageReference.child("images/"+eventHost+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
                                 // Got the download URL

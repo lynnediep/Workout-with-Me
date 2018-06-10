@@ -109,8 +109,8 @@ public class activity_newsfeed extends AppCompatActivity {
                 eventUsers.setText(Integer.toString(model.getUsers().size()) + " / " + Integer.toString(model.getMax_Count()));
 
                 FirebaseDatabase anuthaDatabase = FirebaseDatabase.getInstance();
-                // NEED TO UPDATE TO CURRENT HOST
-                DatabaseReference userRef = anuthaDatabase.getReference("User").child(model.getHost());
+                final String theHost = adapter.getItem(position).getHost();
+                DatabaseReference userRef = anuthaDatabase.getReference("User").child(theHost);
 
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -119,7 +119,7 @@ public class activity_newsfeed extends AppCompatActivity {
                             if (dataSnapshot.getValue() != null) {
                                 currentUser = dataSnapshot.getValue(User.class);
 
-                                storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                storageReference.child("images/"+ theHost+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         // Got the download URL

@@ -163,7 +163,7 @@ public class Profile_Edit extends AppCompatActivity {
                                         profilePicFile = UUID.randomUUID().toString();
                                         currentUser.setProfilePic(profilePicFile);
 
-                                        StorageReference ref = storageReference.child("images/"+ profilePicFile);
+                                        StorageReference ref = storageReference.child("images/"+cruzID+"/"+profilePicFile);
                                         ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                             @Override
                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -254,10 +254,8 @@ public class Profile_Edit extends AppCompatActivity {
                                         adapter = new ArrayAdapter<String>
                                                 (Profile_Edit.this, android.R.layout.simple_list_item_1,
                                                         interestsArray);
-                                        adapter.notifyDataSetChanged();
                                         interestsListView.setAdapter(adapter);
                                         interestText.setText("");
-                                        adapter.notifyDataSetChanged();
                                     }
                                 }
                             });

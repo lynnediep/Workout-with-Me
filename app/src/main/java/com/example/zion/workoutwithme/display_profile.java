@@ -66,7 +66,7 @@ public class display_profile extends AppCompatActivity {
 
                             interests = (ListView) findViewById(R.id.interests_lv);
 
-                            storageReference.child("images/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            storageReference.child("images/"+hostID+"/"+currentUser.getProfilePic()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     // Got the download URL
