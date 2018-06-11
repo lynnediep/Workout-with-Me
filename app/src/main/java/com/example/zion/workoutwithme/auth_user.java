@@ -20,7 +20,7 @@ public class auth_user extends AppCompatActivity implements View.OnClickListener
     private Button authButton;
     private TextView authText;
 
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = Register_Page.mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +32,21 @@ public class auth_user extends AppCompatActivity implements View.OnClickListener
 
         findViewById(R.id.authButton).setOnClickListener(this);
 
-        mAuth = FirebaseAuth.getInstance();
-
     }
 
-        @Override
-        public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
 
-            switch (view.getId()) {
+        switch (view.getId()) {
 
-                case R.id.authButton:
-                    verify_user();
-                    //startActivity(new Intent(auth_user.this, Profile_Edit.class));
+            case R.id.authButton:
+                verify_user();
+                //startActivity(new Intent(auth_user.this, Profile_Edit.class));
 
-                    break;
-            }
-
+                break;
         }
+
+    }
 
     // **************************** Authentication *****************************************
 
@@ -61,7 +59,7 @@ public class auth_user extends AppCompatActivity implements View.OnClickListener
         }else {
 
             authText.setText("Email Not Verified (Click to Verify)");
-            authButton.setOnClickListener(new View.OnClickListener() {
+            authText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
 

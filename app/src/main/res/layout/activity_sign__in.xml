@@ -39,7 +39,7 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/email"
             style="@style/EditText.Login"
-            android:layout_width="262dp"
+            android:layout_width="289dp"
             android:layout_height="67dp"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -68,7 +68,7 @@
         <android.support.design.widget.TextInputEditText
             android:id="@+id/password"
             style="@style/EditText.Login"
-            android:layout_width="261dp"
+            android:layout_width="287dp"
             android:layout_height="68dp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"

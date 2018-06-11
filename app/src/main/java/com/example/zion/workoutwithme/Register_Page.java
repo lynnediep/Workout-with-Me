@@ -29,8 +29,7 @@ public class Register_Page extends AppCompatActivity {
 
     private TextInputEditText email, password,passwordConfirm, firstName, lastName;
 
-
-    FirebaseAuth mAuth;
+    public final static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public static final String CURRENT_USER_ID = "";
 
@@ -42,7 +41,6 @@ public class Register_Page extends AppCompatActivity {
         // Databases
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         final ProgressDialog mDialog = new ProgressDialog(Register_Page.this);
         mDialog.setMessage("Please Wait...");
@@ -123,8 +121,7 @@ public class Register_Page extends AppCompatActivity {
 
 
                         // Goes to Profile page on successful register & put extra for FN, LN, & Email
-                        Intent profile = new Intent(Register_Page.this, auth_user.class);
-                        profile.putExtra(CURRENT_USER_ID, cruzID);
+                        Intent profile = new Intent(Register_Page.this, Sign_In.class);
                         startActivity(profile);
 
                     } else {

@@ -130,6 +130,9 @@ public class comment_section extends AppCompatActivity {
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(userComment.getText().toString().matches("")) {
+                    return;
+                }
                 // Message
                 String commentString = userComment.getText().toString();
                 // Date

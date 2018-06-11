@@ -15,6 +15,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/roundtext"
+        android:gravity="center_horizontal"
         android:text="Title"
         android:textAppearance="@android:style/TextAppearance.Large"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,27 +49,31 @@
         android:layout_width="350dp"
         android:layout_height="154dp"
         android:layout_marginBottom="25dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/roundtext"
+        android:gravity="center_horizontal"
         android:text="Description"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
         app:layout_constraintBottom_toTopOf="@+id/joinButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventLocation" />
 
     <TextView
         android:id="@+id/tvLocation"
         android:layout_width="83dp"
         android:layout_height="26dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="18dp"
+        android:layout_marginRight="5dp"
         android:layout_marginStart="16dp"
         android:text="Location:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/eventDescription"
         app:layout_constraintEnd_toStartOf="@+id/eventLocation"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventLocation" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -90,14 +95,19 @@
         android:layout_height="35dp"
         android:layout_marginBottom="15dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="26dp"
         android:background="@drawable/roundtext"
+        android:gravity="center"
         android:text="Location"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.WindowTitle"
         app:layout_constraintBottom_toTopOf="@+id/eventDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventTime" />
+        app:layout_constraintStart_toEndOf="@+id/tvLocation"
+        app:layout_constraintTop_toBottomOf="@+id/eventTime"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvTime"
